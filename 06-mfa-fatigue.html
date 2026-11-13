@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>
+  (function () { try { if (!localStorage.getItem("shadowproof_profile_v1")) window.location.replace("signin.html"); } catch (e) {} })();
+</script>
+<script src="labs-access.js"></script>
+<script>SPAccess.guard('mfa-fatigue');</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Module 07 // Endless Knocking — MFA Fatigue</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&family=Fraunces:ital,wght@0,400;0,600;0,800;1,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="module-kit.css">
+<style>
+  :root { --accent: #5ab9ff; --accent-rgb: 90, 185, 255; --bg: #0a0d18; --bg-2: #0e1220; --surface: #121829; }
+  .sim { display: grid; grid-template-columns: 300px 1fr; gap: 28px; align-items: start; margin: 28px 0; }
+  .phone {
+    width: 300px; height: 560px; border-radius: 38px; border: 10px solid #20263a; background: #05070d;
+    position: relative; overflow: hidden; box-shadow: 0 30px 60px rgba(0,0,0,.5);
+    font-family: -apple-system, Segoe UI, Roboto, sans-serif;
+  }
+  .phone-clock { text-align: center; color: #fff; font-size: 54px; font-weight: 200; margin-top: 46px; }
+  .phone-date { text-align: center; color: #aab; font-size: 13px; }
+  .push-stack { position: absolute; left: 10px; right: 10px; top: 150px; display: flex; flex-direction: column; gap: 8px; }
+  .push {
+    background: rgba(235, 238, 245, 0.96); color: #111; border-radius: 16px; padding: 12px 14px; font-size: 12.5px;
+    animation: drop .35s ease; box-shadow: 0 6px 18px rgba(0,0,0,.4);
+  }
+  .push.old { opacity: .55; transform: scale(.97); }
+  @keyframes drop { from { transform: translateY(-20px); opacity: 0; } to { transform: none; opacity: 1; } }
+  .push-app { font-size: 10px; text-transform: uppercase; letter-spacing: .08em; color: #556; margin-bottom: 4px; }
+  .push-title { font-weight: 700; margin-bottom: 2px; }
+  .push-actions { display: flex; gap: 8px; margin-top: 10px; }
+  .push-actions button { flex: 1; border: none; border-radius: 10px; padding: 8px; font-weight: 600; font-size: 13px; cursor: pointer; }
+  .p-approve { background: #2563eb; color: #fff; }
+  .p-deny { background: #dde1ea; color: #111; }
+  .sim-side .mk-panel { margin-top: 0; }
+  .count-big { font-family: 'Fraunces', Georgia, serif; font-size: 64px; font-weight: 800; color: var(--accent); line-height: 1; }
+  .chat { background: #1d1f2e; border-radius: 8px; padding: 14px; margin-top: 16px; font-family: Segoe UI, sans-serif; font-size: 13.5px; display: none; }
+  .chat.show { display: block; animation: mkIn .3s; }
+  .chat-name { color: #a6b1ff; font-weight: 600; font-size: 12px; margin-bottom: 4px; }
+  .sim-result { display: none; }
+  .sim-result.show { display: block; animation: mkIn .3s; }
+  .numbox { display: flex; gap: 20px; flex-wrap: wrap; align-items: center; }
+  .num-screen, .num-phone { background: var(--bg-2); border: 1px solid var(--border); padding: 18px; text-align: center; flex: 1; min-width: 200px; }
+  .num-digits { font-family: 'Fraunces', Georgia, serif; font-size: 48px; color: var(--accent); letter-spacing: .1em; }
+  @media (max-width: 760px) { .sim { grid-template-columns: 1fr; justify-items: center; } .sim-side { width: 100%; } .phone { width: 280px; height: 430px; } .phone-clock { margin-top: 28px; font-size: 44px; } .push-stack { top: 120px; } }
+</style>
+</head>
+<body>
+
+<div class="mk-bar">
+  <a href="index.html">← Exit</a>
+  <span class="mk-center">Module 07 · MFA Fatigue / Push Bombing</span>
+  <span id="clock">--:--:--</span>
+</div>
+
+<nav class="mk-chapters" aria-label="Chapters">
+  <span class="mk-chapter active">01 · Briefing</span>
+  <span class="mk-chapter">02 · 11:42 PM</span>
+  <span class="mk-chapter">03 · The Trap</span>
+  <span class="mk-chapter">04 · Playbook</span>
+</nav>
+
+<section class="scene active" id="scene-1">
+  <div class="mk-hero">
+    <div class="mk-kicker">Module 07 · Tier 02</div>
+    <div class="mk-icon">🔔</div>
+    <h1 class="mk-title">Endless <span class="italic">Knocking.</span></h1>
+    <p class="mk-lede">They already have your password. The only thing between them and your account is one tap on your phone — so they'll keep asking until you give it to them.</p>
+    <div class="mk-meta">Runtime · 6 minutes · Interactive</div>
+    <div class="mk-stats">
+      <div class="mk-stat"><div class="mk-stat-num">1 tap</div><div class="mk-stat-label">is all an attacker with your password needs from you</div></div>
+      <div class="mk-stat"><div class="mk-stat-num">Late night</div><div class="mk-stat-label">is when push-bombing usually starts — you're tired and want it to stop</div></div>
+      <div class="mk-stat"><div class="mk-stat-num">Real breaches</div><div class="mk-stat-label">at major tech companies began with exactly this: repeated prompts plus a fake "IT" message</div></div>
+    </div>
+  </div>
+  <div class="mk-content" style="padding-top:0;">
+    <p class="mk-prose">Multi-factor authentication is one of the best protections you have. But push-style MFA has a human weak spot: <strong>it asks you to approve something, and humans eventually say yes just to make the noise stop.</strong> This is called MFA fatigue, or push bombing.</p>
+    <div class="nav-row">
+      <a href="index.html" class="btn">← Back to Suite</a>
+      <button class="btn primary" data-go="2">Pick Up Your Phone →</button>
+    </div>
+  </div>
+</section>
+
+<section class="scene" id="scene-2">
+  <div class="mk-content">
+    <div class="mk-label">Act 02 · Tuesday, 11:42 PM</div>
+    <h2 class="mk-h2">You're in bed. <span class="italic">Your phone lights up.</span></h2>
+    <p class="mk-prose">You aren't signing in to anything. Press <strong>Start</strong> and respond to your phone however you would in real life.</p>
+
+    <div class="sim">
+      <div class="phone" aria-live="polite">
+        <div class="phone-clock">11:42</div>
+        <div class="phone-date">Tuesday</div>
+        <div class="push-stack" id="pushStack"></div>
+      </div>
+      <div class="sim-side">
+        <div class="mk-panel">
+          <div class="mk-panel-head"><span>Sign-in requests received</span><span id="simState">IDLE</span></div>
+          <div class="count-big" id="pushCount">0</div>
+          <div class="dim" style="margin-top:8px;">Denied: <b id="denyCount">0</b></div>
+          <div class="chat" id="chat">
+            <div class="chat-name">IT Service Desk (External)</div>
+            Hi, this is IT. We're running a security update on your account and it's sending verification prompts. Please approve the next one and they'll stop. Sorry for the late-night noise! 🙏
+          </div>
+          <div style="margin-top:18px;"><button class="btn primary" id="simStart" type="button">Start Simulation</button></div>
+        </div>
+        <div class="mk-panel accent sim-result" id="resultApprove">
+          <strong style="color:var(--bad);">You approved. The attacker is in.</strong>
+          <p class="dim" style="margin-top:8px;">That tap completed a sign-in that someone else started, somewhere else, with your stolen password. They now have a session in your account — email, files, chat — and can register their own MFA device so they don't need you again. <strong>The "IT" message was part of the attack:</strong> real IT never asks you to approve a prompt you didn't start.</p>
+        </div>
+        <div class="mk-panel accent sim-result" id="resultDeny">
+          <strong style="color:var(--good);">You held the line.</strong>
+          <p class="dim" style="margin-top:8px;">Every denial keeps them out. But notice what it means: <strong>someone has your password right now.</strong> The next steps matter just as much — report it and change your password. Continue to see the full playbook.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="nav-row">
+      <button class="btn" data-go="1">← Back</button>
+      <button class="btn primary" data-go="3">What Should You Do? →</button>
+    </div>
+  </div>
+</section>
+
+<section class="scene" id="scene-3">
+  <div class="mk-content">
+    <div class="mk-label">Act 03 · The trap</div>
+    <h2 class="mk-h2">Unexpected prompt. <span class="italic">Now what?</span></h2>
+    <p class="mk-prose">You receive an approval request you didn't trigger. Then four more. Choose your response:</p>
+    <div class="choice-set">
+      <button class="choice" data-verdict="bad">Approve one — it's probably a glitch, and it'll stop the notifications.
+        <span class="why">This is precisely the behaviour the attack is engineered to produce. A prompt only appears because someone typed your correct password. <strong>Approving = letting them in.</strong></span></button>
+      <button class="choice" data-verdict="meh">Deny them all and go back to sleep.
+        <span class="why">Denying is correct — but the attacker still has your password and will try again tomorrow, maybe while you're distracted at work. You need to report and reset.</span></button>
+      <button class="choice" data-verdict="bad">Silence your phone until morning.
+        <span class="why">You won't approve by accident — but you also won't warn anyone, and pending prompts can still be tapped half-asleep at 6 AM. The attacker keeps the password.</span></button>
+      <button class="choice" data-verdict="good">Deny every prompt, report it to IT/Security right away, and change your password from a device you trust.
+        <span class="why">Perfect. Deny keeps them out, the report lets Security block the attacker's sign-ins and check for other victims, and a password change makes the stolen one useless. If your MFA app offers <strong>"Report fraud" / "This wasn't me"</strong>, use it.</span></button>
+    </div>
+
+    <h3 class="mk-h3">Number matching: your built-in lie detector</h3>
+    <p class="mk-prose">Many organizations now use <strong>number matching</strong>: the sign-in screen shows a number and your phone asks you to type it. If you didn't start a sign-in, <strong>you have no screen and no number</strong> — that's your proof the request isn't yours.</p>
+    <div class="numbox">
+      <div class="num-screen"><div class="muted" style="font-size:11px;letter-spacing:.15em;">ON THE SIGN-IN SCREEN</div><div class="num-digits">47</div><div class="dim" style="font-size:12px;">Only visible to whoever is signing in</div></div>
+      <div class="num-phone"><div class="muted" style="font-size:11px;letter-spacing:.15em;">ON YOUR PHONE</div><div class="num-digits">_ _</div><div class="dim" style="font-size:12px;">"Enter the number shown to sign in"</div></div>
+    </div>
+    <div class="mk-panel accent" style="margin-top:20px;">If a "helpful" caller or chat message ever tells you <strong>which number to enter</strong>, that is the attacker reading it off their screen. Deny and report.</div>
+
+    <div class="nav-row">
+      <button class="btn" data-go="2">← Back</button>
+      <button class="btn primary" data-go="4">The Playbook →</button>
+    </div>
+  </div>
+</section>
+
+<section class="scene" id="scene-4">
+  <div class="mk-content">
+    <div class="mk-label">Act 04 · Your playbook</div>
+    <h2 class="mk-h2">Rules for <span class="italic">every buzz.</span></h2>
+    <div class="rules">
+      <div class="rule"><div class="rule-num">RULE 01</div><div class="rule-title">Didn't start it? Deny it.</div><div class="rule-body">Approve only prompts you triggered seconds ago, on a sign-in you're looking at. Everything else is a deny — no exceptions.</div></div>
+      <div class="rule"><div class="rule-num">RULE 02</div><div class="rule-title">A prompt means a leaked password.</div><div class="rule-body">Prompts only appear after a correct password. Change it from a trusted device, and anywhere else you reused it.</div></div>
+      <div class="rule"><div class="rule-num">RULE 03</div><div class="rule-title">IT never asks you to approve.</div><div class="rule-body">Not by phone, chat, text, or email. A message telling you to accept a prompt is part of the attack.</div></div>
+      <div class="rule"><div class="rule-num">RULE 04</div><div class="rule-title">Never read out or type a number for someone.</div><div class="rule-body">Number-matching codes and one-time codes belong to you alone. Anyone asking for one is trying to sign in as you.</div></div>
+      <div class="rule"><div class="rule-num">RULE 05</div><div class="rule-title">Report — even if you denied.</div><div class="rule-body">Your report lets Security block the attacker, reset sessions, and catch the same campaign hitting coworkers.</div></div>
+    </div>
+    <div class="pull-quote">The attacker is counting on you being tired. Be stubborn instead.</div>
+
+    <div class="mk-complete">
+      <h3>Knocking <span class="italic">ignored.</span></h3>
+      <p>Pass the knowledge check to earn your Endless Knocking badge.</p>
+      <button class="btn primary" id="startCheckBtn">Take the Knowledge Check →</button>
+    </div>
+    <div id="shadowproof-assessment"></div>
+
+    <div class="nav-row">
+      <button class="btn" data-go="3">← Back</button>
+      <a href="index.html" class="btn">Return to Suite →</a>
+    </div>
+  </div>
+</section>
+
+<script src="questions.js"></script>
+<script src="assessment.js"></script>
+<script src="module-kit.js"></script>
+<script>
+  ModuleKit.init({ moduleId: 'mfa-fatigue', moduleTitle: 'Endless Knocking' });
+
+  (function () {
+    var stack = document.getElementById('pushStack');
+    var countEl = document.getElementById('pushCount');
+    var denyEl = document.getElementById('denyCount');
+    var stateEl = document.getElementById('simState');
+    var chat = document.getElementById('chat');
+    var startBtn = document.getElementById('simStart');
+    var timer = null, count = 0, denies = 0, over = false;
+    var places = ['Sofia, BG', 'Lagos, NG', 'São Paulo, BR', 'Unknown location', 'Hanoi, VN'];
+
+    function finish(approved) {
+      over = true;
+      clearTimeout(timer);
+      stateEl.textContent = approved ? 'COMPROMISED' : 'BLOCKED';
+      stateEl.style.color = approved ? 'var(--bad)' : 'var(--good)';
+      stack.innerHTML = '';
+      document.getElementById(approved ? 'resultApprove' : 'resultDeny').classList.add('show');
+      startBtn.textContent = 'Run Again';
+      startBtn.style.display = '';
+    }
+
+    function push() {
+      if (over) return;
+      count++;
+      countEl.textContent = count;
+      Array.prototype.forEach.call(stack.children, function (c) { c.classList.add('old'); });
+      while (stack.children.length > 2) stack.removeChild(stack.firstChild);
+      var el = document.createElement('div');
+      el.className = 'push';
+      el.innerHTML = '<div class="push-app">Authenticator · now</div>' +
+        '<div class="push-title">Approve sign-in request?</div>' +
+        '<div>Work account · ' + places[count % places.length] + '</div>' +
+        '<div class="push-actions"><button class="p-deny" type="button">Deny</button><button class="p-approve" type="button">Approve</button></div>';
+      el.querySelector('.p-approve').onclick = function () { finish(true); };
+      el.querySelector('.p-deny').onclick = function () {
+        denies++; denyEl.textContent = denies; el.remove();
+        if (denies >= 6) finish(false);
+      };
+      stack.appendChild(el);
+      if (count === 4) chat.classList.add('show');
+      if (count >= 14) { timer = setTimeout(function () { finish(false); }, 2500); return; }
+      timer = setTimeout(push, count < 4 ? 2200 : 1600);
+    }
+
+    startBtn.addEventListener('click', function () {
+      over = false; count = 0; denies = 0;
+      countEl.textContent = '0'; denyEl.textContent = '0';
+      stack.innerHTML = ''; chat.classList.remove('show');
+      document.getElementById('resultApprove').classList.remove('show');
+      document.getElementById('resultDeny').classList.remove('show');
+      stateEl.textContent = 'UNDER ATTACK'; stateEl.style.color = 'var(--warn)';
+      startBtn.style.display = 'none';
+      push();
+    });
+  })();
+</script>
+</body>
+</html>

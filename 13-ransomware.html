@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>
+  (function () { try { if (!localStorage.getItem("shadowproof_profile_v1")) window.location.replace("signin.html"); } catch (e) {} })();
+</script>
+<script src="labs-access.js"></script>
+<script>SPAccess.guard('ransomware');</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Module 05 // The Locked Door — Ransomware &amp; Attachments</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&family=Fraunces:ital,wght@0,400;0,600;0,800;1,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="module-kit.css">
+<style>
+  :root { --accent: #ff4757; --accent-rgb: 255, 71, 87; --bg: #0a0508; --bg-2: #120a0d; --surface: #170d11; }
+  .mail { background: #f6f7f9; color: #1d2329; font-family: -apple-system, Segoe UI, Roboto, sans-serif; border-radius: 6px; overflow: hidden; }
+  .mail-top { background: #e9ecf0; padding: 14px 20px; font-size: 13px; border-bottom: 1px solid #d5dae0; }
+  .mail-top div { margin: 2px 0; }
+  .mail-body { padding: 22px 20px; font-size: 15px; line-height: 1.6; }
+  .attach { display: inline-flex; align-items: center; gap: 10px; border: 1px solid #c9d0d8; border-radius: 4px; padding: 10px 14px; margin-top: 14px; background: #fff; }
+  .attach-ico { width: 30px; height: 36px; background: #d93025; color: #fff; font-size: 9px; font-weight: 700; display: flex; align-items: flex-end; justify-content: center; padding-bottom: 4px; border-radius: 2px; }
+  .mail .flag { border-bottom-color: #d93025; background: rgba(217, 48, 37, 0.08); }
+  .mail .flag.found { background: rgba(217, 48, 37, 0.22); }
+  .macro-bar { background: #fff4ce; color: #3b2f00; border: 1px solid #e6d27a; padding: 12px 16px; font-family: Segoe UI, sans-serif; font-size: 13px; display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+  .macro-bar b { color: #3b2f00; }
+  .macro-fake-btn { border: 1px solid #a08a2b; padding: 4px 10px; background: #fff; }
+  .timeline { position: relative; margin: 28px 0; padding-left: 28px; border-left: 2px solid var(--border); }
+  .tl-item { position: relative; margin-bottom: 22px; }
+  .tl-item::before { content: ''; position: absolute; left: -35px; top: 5px; width: 12px; height: 12px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 12px var(--accent); }
+  .tl-time { font-size: 11px; color: var(--accent); letter-spacing: 0.15em; }
+  .tl-text { color: var(--text-dim); font-size: 14px; }
+  .tl-text strong { color: var(--text); }
+</style>
+</head>
+<body>
+
+<div class="mk-bar">
+  <a href="index.html">← Exit</a>
+  <span class="mk-center">Module 05 · Ransomware &amp; Attachments</span>
+  <span id="clock">--:--:--</span>
+</div>
+
+<nav class="mk-chapters" aria-label="Chapters">
+  <span class="mk-chapter active">01 · Briefing</span>
+  <span class="mk-chapter">02 · The Invoice</span>
+  <span class="mk-chapter">03 · Triage</span>
+  <span class="mk-chapter">04 · Playbook</span>
+</nav>
+
+<!-- SCENE 1 -->
+<section class="scene active" id="scene-1">
+  <div class="mk-hero">
+    <div class="mk-kicker">Module 05 · Tier 01</div>
+    <div class="mk-icon">🔒</div>
+    <h1 class="mk-title">The Locked <span class="italic">Door.</span></h1>
+    <p class="mk-lede">One attachment. One "Enable Content" click. By Monday morning, every shared drive in the company reads like gibberish — and someone wants seven figures to give it back.</p>
+    <div class="mk-meta">Runtime · 9 minutes · Interactive</div>
+    <div class="mk-stats">
+      <div class="mk-stat"><div class="mk-stat-num">~ 1 in 3</div><div class="mk-stat-label">ransomware intrusions begin with a phishing email or malicious attachment</div></div>
+      <div class="mk-stat"><div class="mk-stat-num">Days</div><div class="mk-stat-label">attackers often spend quietly inside the network before they encrypt anything</div></div>
+      <div class="mk-stat"><div class="mk-stat-num">2×</div><div class="mk-stat-label">extortion: encrypt your files <em>and</em> threaten to leak stolen data</div></div>
+    </div>
+  </div>
+  <div class="mk-content" style="padding-top:0;">
+    <p class="mk-prose">Ransomware isn't a single click — it's a chain. The attacker needs a first foothold, and the cheapest foothold on earth is an employee opening a file. <strong>Break the first link and the whole chain fails.</strong> That link is you, and this module shows you exactly what it looks like.</p>
+    <div class="nav-row">
+      <a href="index.html" class="btn">← Back to Suite</a>
+      <button class="btn primary" data-go="2">Open the Inbox →</button>
+    </div>
+  </div>
+</section>
+
+<!-- SCENE 2 -->
+<section class="scene" id="scene-2">
+  <div class="mk-content">
+    <div class="mk-label">Act 02 · Friday, 4:52 PM</div>
+    <h2 class="mk-h2">The invoice that <span class="italic">wasn't.</span></h2>
+    <p class="mk-prose">It's the end of the week. This lands in your inbox. Click every detail you find suspicious — there are several.</p>
+
+    <div class="flag-zone">
+      <div class="mail">
+        <div class="mail-top">
+          <div><b>From:</b> Accounts Dept &lt;<button class="flag">billing@northwind-supp1y.co<span class="why"><b>Look-alike domain</b>"supp1y" uses the number 1 instead of an L, and the TLD is .co, not your vendor's real .com.</span></button>&gt;</div>
+          <div><b>To:</b> you</div>
+          <div><b>Subject:</b> <button class="flag">FINAL NOTICE – Overdue Invoice #88231 – Late Fee Applies Today<span class="why"><b>Pressure + deadline</b>"Final notice" and "today" on a Friday afternoon is designed to make you act before you think.</span></button></div>
+        </div>
+        <div class="mail-body">
+          <p>Hello,</p>
+          <p style="margin-top:10px;">Our records show invoice #88231 remains unpaid. <button class="flag">Please review the attached statement immediately to avoid service suspension and a 15% late fee.<span class="why"><b>Threat of consequence</b>Unexpected financial threats are a classic lure to get you to open the attachment.</span></button></p>
+          <p style="margin-top:10px;"><button class="flag">The document is protected. Use password: INV2026<span class="why"><b>Password-protected attachment</b>Attackers encrypt attachments so email security scanners can't look inside. A password in the same email protects nothing — it only blinds your defenses.</span></button></p>
+          <p style="margin-top:10px;">Regards,<br>Accounts Receivable</p>
+          <div class="attach">
+            <div class="attach-ico">ZIP</div>
+            <div><button class="flag">Invoice_88231.pdf.zip<span class="why"><b>Archive pretending to be a PDF</b>A ".pdf.zip" holds something that isn't a PDF. Inside you'll typically find a script, a shortcut (.lnk), a disk image, or a macro-enabled document.</span></button><div style="font-size:11px;color:#6b7580;">48 KB</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="flag-meter"><span>Red flags found: <b class="flag-count">0</b> / <span class="flag-total"></span></span><span class="muted">Click the suspicious text</span></div>
+      <div class="flag-log"></div>
+    </div>
+
+    <div class="mk-prompt">▸ Curiosity wins. You extract the zip and open the "invoice" inside. Word shows this:</div>
+    <div class="macro-bar"><b>⚠ SECURITY WARNING</b> Macros have been disabled. <span class="macro-fake-btn">Enable Content</span> <span style="opacity:.7;">"This document was created in an earlier version. Enable content to view."</span></div>
+
+    <div class="mk-prompt">▸ What do you do?</div>
+    <div class="choice-set">
+      <button class="choice" data-verdict="bad">Click "Enable Content" — the document says that's how to view it.
+        <span class="why">That button runs the attacker's code with your permissions. Typical next steps: a loader downloads a remote-access tool, credentials are harvested, and the attacker begins exploring the network. <strong>No real invoice needs macros to display.</strong></span></button>
+      <button class="choice" data-verdict="meh">Close the document and delete the email. No harm done.
+        <span class="why">Better than enabling — but you already extracted and opened a file, and others likely got the same email. Security needs to know so they can check your device and block the sender for everyone.</span></button>
+      <button class="choice" data-verdict="good">Don't enable anything. Close it, leave the files alone, and report it with the Report Phishing button (or to IT) right away.
+        <span class="why">Exactly right. Opening a document with macros disabled is usually survivable; enabling is not. Reporting lets Security sweep everyone's inbox and check your machine. If you aren't sure whether anything ran, <strong>say so — and unplug from the network if told to.</strong></span></button>
+    </div>
+
+    <div class="nav-row">
+      <button class="btn" data-go="1">← Back</button>
+      <button class="btn primary" data-go="3">Attachment Triage →</button>
+    </div>
+  </div>
+</section>
+
+<!-- SCENE 3 -->
+<section class="scene" id="scene-3">
+  <div class="mk-content">
+    <div class="mk-label">Act 03 · Attachment triage</div>
+    <h2 class="mk-h2">Which files would <span class="italic">you</span> open?</h2>
+    <p class="mk-prose">All of these arrived as attachments. Some are routine. Some are loaded weapons. Sort them — and read the note on each one.</p>
+
+    <div class="mk-panel">
+      <div class="triage">
+        <div class="tri" data-answer="danger">
+          <div><div class="tri-name">Payment_Receipt.pdf.exe</div><div class="tri-sub">From: unknown sender · 212 KB</div></div>
+          <div class="tri-btns"><button data-pick="safe">Expected</button><button data-pick="danger">Suspicious</button></div>
+          <div class="why"><strong>Double extension.</strong> Windows hides known extensions by default, so this shows as "Payment_Receipt.pdf". The real extension is .exe — a program.</div>
+        </div>
+        <div class="tri" data-answer="safe">
+          <div><div class="tri-name">Q3_Budget_Review.xlsx</div><div class="tri-sub">From: your manager · you asked for it this morning</div></div>
+          <div class="tri-btns"><button data-pick="safe">Expected</button><button data-pick="danger">Suspicious</button></div>
+          <div class="why"><strong>Expected file, expected sender, expected format.</strong> Context is the best filter. Still: if it ever asks you to enable macros or editing to "view", stop.</div>
+        </div>
+        <div class="tri" data-answer="danger">
+          <div><div class="tri-name">Shipping_Label.iso</div><div class="tri-sub">From: "Courier Notifications" · 1.2 MB</div></div>
+          <div class="tri-btns"><button data-pick="safe">Expected</button><button data-pick="danger">Suspicious</button></div>
+          <div class="why"><strong>Disk image.</strong> .iso, .img and .vhd files mount like a drive and are used to smuggle programs and shortcuts past protections. Nobody sends shipping labels this way.</div>
+        </div>
+        <div class="tri" data-answer="danger">
+          <div><div class="tri-name">Scanned_Contract.html</div><div class="tri-sub">From: "DocuSign Service" · 9 KB</div></div>
+          <div class="tri-btns"><button data-pick="safe">Expected</button><button data-pick="danger">Suspicious</button></div>
+          <div class="why"><strong>HTML attachment.</strong> Opens locally in your browser — often a fake sign-in page or a script that assembles malware on your machine ("HTML smuggling"). Real e-signature services send links to their own site.</div>
+        </div>
+        <div class="tri" data-answer="danger">
+          <div><div class="tri-name">Resume_JSmith.docm</div><div class="tri-sub">From: careers inbox applicant · 64 KB</div></div>
+          <div class="tri-btns"><button data-pick="safe">Expected</button><button data-pick="danger">Suspicious</button></div>
+          <div class="why"><strong>The "m" means macros.</strong> .docm, .xlsm and .pptm are macro-enabled formats. A résumé has zero reason to contain code.</div>
+        </div>
+        <div class="tri" data-answer="danger">
+          <div><div class="tri-name">Team_Photos.lnk</div><div class="tri-sub">From: a coworker's address · 2 KB</div></div>
+          <div class="tri-btns"><button data-pick="safe">Expected</button><button data-pick="danger">Suspicious</button></div>
+          <div class="why"><strong>Shortcut file — and possibly a compromised coworker.</strong> A .lnk can launch any command. Attackers often send from real, hijacked accounts. Verify with the coworker on another channel.</div>
+        </div>
+        <div class="tri" data-answer="safe">
+          <div><div class="tri-name">Meeting_Notes.pdf</div><div class="tri-sub">From: colleague · follow-up to today's meeting you attended</div></div>
+          <div class="tri-btns"><button data-pick="safe">Expected</button><button data-pick="danger">Suspicious</button></div>
+          <div class="why"><strong>Reasonable.</strong> Expected sender, expected topic, plain PDF. If a PDF ever shows a "click here to view the document" button that leads to a login page, treat it as phishing.</div>
+        </div>
+      </div>
+      <div class="tri-score"></div>
+    </div>
+
+    <div class="mk-panel accent">
+      <strong>Make your computer show the truth.</strong> <span class="dim">In Windows File Explorer: View → Show → File name extensions. On a Mac: Finder → Settings → Advanced → Show all filename extensions. It takes ten seconds and exposes every double-extension trick.</span>
+    </div>
+
+    <div class="nav-row">
+      <button class="btn" data-go="2">← Back</button>
+      <button class="btn primary" data-go="4">The Playbook →</button>
+    </div>
+  </div>
+</section>
+
+<!-- SCENE 4 -->
+<section class="scene" id="scene-4">
+  <div class="mk-content">
+    <div class="mk-label">Act 04 · If someone clicks</div>
+    <h2 class="mk-h2">How one click becomes <span class="italic">a lockout.</span></h2>
+    <div class="timeline">
+      <div class="tl-item"><div class="tl-time">FRIDAY 16:58</div><div class="tl-text"><strong>Macro runs.</strong> A small loader quietly downloads a remote-access tool.</div></div>
+      <div class="tl-item"><div class="tl-time">FRIDAY → SUNDAY</div><div class="tl-text"><strong>Attackers explore.</strong> They steal passwords, find file servers and backups, and copy sensitive data out.</div></div>
+      <div class="tl-item"><div class="tl-time">SUNDAY 02:00</div><div class="tl-text"><strong>Backups deleted, encryption starts</strong> — timed for when nobody is watching.</div></div>
+      <div class="tl-item"><div class="tl-time">MONDAY 07:30</div><div class="tl-text"><strong>Ransom note on every screen.</strong> Pay, or the files stay locked and the stolen data gets published.</div></div>
+    </div>
+    <p class="mk-prose">Every hour between the click and the report gives the attacker more room. <strong>A report at 16:59 Friday changes the whole story.</strong></p>
+
+    <div class="rules">
+      <div class="rule"><div class="rule-num">RULE 01</div><div class="rule-title">Never "Enable Content".</div><div class="rule-body">No invoice, résumé, or shipping notice needs macros to be read. If a document begs you to enable something, that's the attack.</div></div>
+      <div class="rule"><div class="rule-num">RULE 02</div><div class="rule-title">Fear unusual file types.</div><div class="rule-body">.zip with a password, .iso, .img, .html, .lnk, .js, .exe, .docm/.xlsm — and any double extension. Expect plain PDFs and Office files from known people.</div></div>
+      <div class="rule"><div class="rule-num">RULE 03</div><div class="rule-title">Verify the unexpected.</div><div class="rule-body">An invoice you didn't expect? Check with the vendor using contact details you already have — not the ones in the email.</div></div>
+      <div class="rule"><div class="rule-num">RULE 04</div><div class="rule-title">Clicked? Report in minutes.</div><div class="rule-body">Tell IT immediately, even if "nothing happened". If instructed, disconnect from Wi-Fi/network — but don't power off; responders may need what's in memory.</div></div>
+      <div class="rule"><div class="rule-num">RULE 05</div><div class="rule-title">Save work where it's backed up.</div><div class="rule-body">Use approved company storage (OneDrive/SharePoint/network drives), not your desktop. Backed-up data is what lets a company recover without paying.</div></div>
+    </div>
+
+    <div class="pull-quote">Ransomware is a Monday-morning disaster that starts with a Friday-afternoon click. Don't be the click — be the report.</div>
+
+    <div class="mk-complete">
+      <h3>Door <span class="italic">bolted.</span></h3>
+      <p>Pass the knowledge check to earn your Locked Door badge.</p>
+      <button class="btn primary" id="startCheckBtn">Take the Knowledge Check →</button>
+    </div>
+    <div id="shadowproof-assessment"></div>
+
+    <div class="nav-row">
+      <button class="btn" data-go="3">← Back</button>
+      <a href="index.html" class="btn">Return to Suite →</a>
+    </div>
+  </div>
+</section>
+
+<script src="questions.js"></script>
+<script src="assessment.js"></script>
+<script src="module-kit.js"></script>
+<script>ModuleKit.init({ moduleId: 'ransomware', moduleTitle: 'The Locked Door' });</script>
+</body>
+</html>

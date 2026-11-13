@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>
+  (function () { try { if (!localStorage.getItem("shadowproof_profile_v1")) window.location.replace("signin.html"); } catch (e) {} })();
+</script>
+<script src="labs-access.js"></script>
+<script>SPAccess.guard('home-network');</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Module 14 // The Home Front — Home Network &amp; Personal Devices</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&family=Fraunces:ital,wght@0,400;0,600;0,800;1,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="module-kit.css">
+<style>
+  :root { --accent: #40ff8a; --accent-rgb: 64, 255, 138; --bg: #0a1010; --bg-2: #0e1616; --surface: #121c1c; }
+  .house { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin: 24px 0; }
+  .dev { background: var(--bg-2); border: 1px solid var(--border); padding: 16px; text-align: center; transition: border-color .3s; }
+  .dev .big { font-size: 34px; }
+  .dev .st { font-size: 11px; letter-spacing: .1em; margin-top: 6px; color: var(--bad); }
+  .dev.safe { border-color: var(--good); }
+  .dev.safe .st { color: var(--good); }
+  .router-ui { background: #f5f6f8; color: #1d232a; border-radius: 8px; overflow: hidden; font-family: -apple-system, Segoe UI, sans-serif; }
+  .router-top { background: #1f3a5f; color: #fff; padding: 12px 18px; font-weight: 600; display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+  .setting { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 14px 18px; border-bottom: 1px solid #e3e6ea; }
+  .setting-name { font-weight: 600; font-size: 14px; }
+  .setting-now { font-size: 12.5px; color: #6b7280; }
+  .setting-why { font-size: 12.5px; color: #0f5132; display: none; margin-top: 4px; }
+  .setting.fixed .setting-why { display: block; }
+  .setting button { border: 1px solid #1f3a5f; background: #fff; color: #1f3a5f; padding: 7px 14px; font-weight: 600; cursor: pointer; border-radius: 4px; white-space: nowrap; font-size: 13px; }
+  .setting.fixed button { background: #198754; border-color: #198754; color: #fff; }
+  .score-ring { font-family: 'Fraunces', Georgia, serif; font-size: 48px; font-weight: 800; color: var(--accent); }
+  @media (max-width: 760px) { .setting { flex-direction: column; align-items: flex-start; } }
+</style>
+</head>
+<body>
+
+<div class="mk-bar">
+  <a href="index.html">← Exit</a>
+  <span class="mk-center">Module 14 · Home Network &amp; Personal Devices</span>
+  <span id="clock">--:--:--</span>
+</div>
+
+<nav class="mk-chapters" aria-label="Chapters">
+  <span class="mk-chapter active">01 · Briefing</span>
+  <span class="mk-chapter">02 · Fix the Router</span>
+  <span class="mk-chapter">03 · Shared Spaces</span>
+  <span class="mk-chapter">04 · Playbook</span>
+</nav>
+
+<section class="scene active" id="scene-1">
+  <div class="mk-hero">
+    <div class="mk-kicker">Module 14 · Tier 03</div>
+    <div class="mk-icon">🏠</div>
+    <h1 class="mk-title">The Home <span class="italic">Front.</span></h1>
+    <p class="mk-lede">Your work laptop now shares a network with a smart TV that hasn't been updated since 2019, a doorbell camera, and your kid's gaming PC full of "free" mods.</p>
+    <div class="mk-meta">Runtime · 8 minutes · Interactive</div>
+    <div class="mk-stats">
+      <div class="mk-stat"><div class="mk-stat-num">admin/admin</div><div class="mk-stat-label">still the router login in a surprising number of homes</div></div>
+      <div class="mk-stat"><div class="mk-stat-num">15–30+</div><div class="mk-stat-label">connected devices in a typical modern household</div></div>
+      <div class="mk-stat"><div class="mk-stat-num">20 min</div><div class="mk-stat-label">is all it takes to fix the biggest home-network weaknesses</div></div>
+    </div>
+  </div>
+  <div class="mk-content" style="padding-top:0;">
+    <p class="mk-prose">When you work from home, your house becomes a branch office — <strong>without the branch office's IT team.</strong> Attackers target routers and smart devices because they're rarely updated and often use default passwords. Let's walk through your house.</p>
+    <div class="house" id="house">
+      <div class="dev" data-k="router"><div class="big">📡</div>Router<div class="st">AT RISK</div></div>
+      <div class="dev" data-k="iot"><div class="big">📺</div>Smart TV &amp; cameras<div class="st">AT RISK</div></div>
+      <div class="dev" data-k="work"><div class="big">💻</div>Work laptop<div class="st">AT RISK</div></div>
+      <div class="dev" data-k="family"><div class="big">🎮</div>Family PC<div class="st">AT RISK</div></div>
+    </div>
+    <div class="nav-row">
+      <a href="index.html" class="btn">← Back to Suite</a>
+      <button class="btn primary" data-go="2">Open the Router Settings →</button>
+    </div>
+  </div>
+</section>
+
+<section class="scene" id="scene-2">
+  <div class="mk-content">
+    <div class="mk-label">Act 02 · Fix the router</div>
+    <h2 class="mk-h2">Your router is the <span class="italic">front door.</span></h2>
+    <p class="mk-prose">This is a simulated router admin page with the settings found in many homes. Click <strong>Fix</strong> on each one to see what to change and why. (Real menus vary by brand — the ideas are the same.)</p>
+
+    <div class="router-ui">
+      <div class="router-top"><span>HomeRouter AX · Admin</span><span>Security score: <span id="rScore">0</span>/6</span></div>
+      <div class="setting"><div><div class="setting-name">Admin password</div><div class="setting-now">Current: default (printed on the sticker)</div><div class="setting-why">✓ Changed to a long, unique password stored in your password manager. Default credentials are published online for every model.</div></div><button type="button">Fix</button></div>
+      <div class="setting"><div><div class="setting-name">Firmware</div><div class="setting-now">Current: v1.0.4 (2021) · Auto-update OFF</div><div class="setting-why">✓ Updated and auto-update turned on. Old router firmware has known, actively exploited vulnerabilities. If your router no longer gets updates, replace it.</div></div><button type="button">Fix</button></div>
+      <div class="setting"><div><div class="setting-name">Wi-Fi security</div><div class="setting-now">Current: WPA (TKIP) · password "smithfamily"</div><div class="setting-why">✓ Switched to WPA3 (or WPA2-AES) with a long passphrase. Weak protocols and guessable passwords let neighbours — or anyone parked outside — join.</div></div><button type="button">Fix</button></div>
+      <div class="setting"><div><div class="setting-name">WPS (push-button setup)</div><div class="setting-now">Current: Enabled</div><div class="setting-why">✓ Disabled. WPS PIN mode has well-known weaknesses that let attackers recover the Wi-Fi password.</div></div><button type="button">Fix</button></div>
+      <div class="setting"><div><div class="setting-name">Remote management &amp; UPnP</div><div class="setting-now">Current: Remote admin ON · UPnP ON</div><div class="setting-why">✓ Remote admin off; UPnP off unless you specifically need it. These can expose the router and devices behind it to the internet.</div></div><button type="button">Fix</button></div>
+      <div class="setting"><div><div class="setting-name">Guest / IoT network</div><div class="setting-now">Current: Not configured · all devices on one network</div><div class="setting-why">✓ Smart TV, cameras, speakers, and visitors moved to a separate guest network. If one gets compromised, it can't reach your work laptop.</div></div><button type="button">Fix</button></div>
+    </div>
+    <div class="mk-panel accent" id="routerDone" style="display:none;"><strong>Router hardened.</strong> <span class="dim">Six changes, about twenty minutes, and your home network is harder to break into than most. Bonus: write the new admin password in your password manager, not on the sticker.</span></div>
+
+    <div class="nav-row">
+      <button class="btn" data-go="1">← Back</button>
+      <button class="btn primary" data-go="3">Shared Spaces →</button>
+    </div>
+  </div>
+</section>
+
+<section class="scene" id="scene-3">
+  <div class="mk-content">
+    <div class="mk-label">Act 03 · Shared spaces</div>
+    <h2 class="mk-h2">Work device, <span class="italic">family home.</span></h2>
+
+    <div class="mk-prompt">▸ Your teenager asks to borrow your work laptop for a school project — theirs is broken.</div>
+    <div class="choice-set">
+      <button class="choice" data-verdict="bad">Sure — but only for an hour, and you set up a separate browser profile for them.
+        <span class="why">A browser profile doesn't separate anything that matters. Downloads, extensions, and "free" software can compromise the device and your company access. Work devices are for work, used by you.</span></button>
+      <button class="choice" data-verdict="good">"Sorry — work laptop's off-limits. Let's use the family computer or my personal tablet."
+        <span class="why">Right. Company devices are for the employee only. It protects your family, too: you don't want their files mixed into company systems and monitoring.</span></button>
+    </div>
+
+    <div class="mk-prompt">▸ You want to print a confidential HR document at home.</div>
+    <div class="choice-set">
+      <button class="choice" data-verdict="meh">Email it to your personal address and print from the family PC.
+        <span class="why">Company data now lives in your personal mailbox and on a shared PC — outside company protection and retention rules. Avoid it.</span></button>
+      <button class="choice" data-verdict="good">Avoid printing it if you can; if you must, follow company policy (approved printer/workflow) and shred it afterwards.
+        <span class="why">Good. Sensitive data stays inside company systems, and paper gets disposed of properly — not in the household recycling.</span></button>
+    </div>
+
+    <div class="mk-prompt">▸ Your smart speaker is on the desk next to you during confidential calls.</div>
+    <div class="choice-set">
+      <button class="choice" data-verdict="meh">It's fine — it only listens after the wake word.
+        <span class="why">Usually true, but false wake-ups happen, and recordings may be stored. For confidential calls, mute it or work in another room.</span></button>
+      <button class="choice" data-verdict="good">Mute it (or move it) during sensitive calls, and keep the work area private from others in the household.
+        <span class="why">Yes — a simple habit. Also consider who else can overhear or see your screen at home.</span></button>
+    </div>
+
+    <h3 class="mk-h3">Personal devices that touch work</h3>
+    <div class="reveal-grid">
+      <button class="reveal"><span class="reveal-front">Phone with work email</span><span class="reveal-hint">Tap to reveal</span><span class="why">Keep it updated, screen-locked with a PIN/biometric, and only install apps from the official store. Use your company's approved app (e.g. managed Outlook/Teams).</span></button>
+      <button class="reveal"><span class="reveal-front">Updates on everything</span><span class="reveal-hint">Tap to reveal</span><span class="why">Turn on automatic updates for laptops, phones, routers, TVs, and cameras. Unpatched devices are the easiest way in.</span></button>
+      <button class="reveal"><span class="reveal-front">Smart gadgets</span><span class="reveal-hint">Tap to reveal</span><span class="why">Change default passwords, put them on the guest/IoT network, and remove ones you no longer use.</span></button>
+    </div>
+
+    <div class="nav-row">
+      <button class="btn" data-go="2">← Back</button>
+      <button class="btn primary" data-go="4">The Playbook →</button>
+    </div>
+  </div>
+</section>
+
+<section class="scene" id="scene-4">
+  <div class="mk-content">
+    <div class="mk-label">Act 04 · Your playbook</div>
+    <h2 class="mk-h2">Your home, <span class="italic">hardened.</span></h2>
+    <div class="rules">
+      <div class="rule"><div class="rule-num">STEP 01</div><div class="rule-title">Change router defaults.</div><div class="rule-body">New admin password, WPA3/WPA2-AES with a long Wi-Fi passphrase, WPS and remote admin off.</div></div>
+      <div class="rule"><div class="rule-num">STEP 02</div><div class="rule-title">Update automatically.</div><div class="rule-body">Router firmware and every device. Replace routers that no longer get updates.</div></div>
+      <div class="rule"><div class="rule-num">STEP 03</div><div class="rule-title">Separate the gadgets.</div><div class="rule-body">Smart devices and guests go on a guest network, away from your work laptop.</div></div>
+      <div class="rule"><div class="rule-num">STEP 04</div><div class="rule-title">Work device = work only.</div><div class="rule-body">No family use, no personal software, no personal cloud storage for company files.</div></div>
+      <div class="rule"><div class="rule-num">STEP 05</div><div class="rule-title">Use the VPN.</div><div class="rule-body">Connect to company resources the approved way, even at home.</div></div>
+      <div class="rule"><div class="rule-num">STEP 06</div><div class="rule-title">Something weird? Ask IT.</div><div class="rule-body">Strange pop-ups, slowness, new browser toolbars, or a router you can't log into — report it.</div></div>
+    </div>
+    <div class="pull-quote">The office has an IT team. Your living room has you. Twenty minutes makes all the difference.</div>
+
+    <div class="mk-complete">
+      <h3>Front <span class="italic">secured.</span></h3>
+      <p>Pass the knowledge check to earn your Home Front badge.</p>
+      <button class="btn primary" id="startCheckBtn">Take the Knowledge Check →</button>
+    </div>
+    <div id="shadowproof-assessment"></div>
+
+    <div class="nav-row">
+      <button class="btn" data-go="3">← Back</button>
+      <a href="index.html" class="btn">Return to Suite →</a>
+    </div>
+  </div>
+</section>
+
+<script src="questions.js"></script>
+<script src="assessment.js"></script>
+<script src="module-kit.js"></script>
+<script>
+  ModuleKit.init({ moduleId: 'home-network', moduleTitle: 'The Home Front' });
+  (function () {
+    var settings = document.querySelectorAll('.setting');
+    var score = document.getElementById('rScore');
+    function update() {
+      var n = document.querySelectorAll('.setting.fixed').length;
+      score.textContent = n;
+      document.getElementById('routerDone').style.display = n === settings.length ? 'block' : 'none';
+      var map = { router: n >= 5, iot: document.querySelectorAll('.setting.fixed').length === settings.length, work: n === settings.length, family: n >= 3 };
+      document.querySelectorAll('#house .dev').forEach(function (d) {
+        var ok = map[d.dataset.k];
+        d.classList.toggle('safe', ok);
+        d.querySelector('.st').textContent = ok ? 'PROTECTED' : 'AT RISK';
+      });
+    }
+    settings.forEach(function (s) {
+      s.querySelector('button').addEventListener('click', function () {
+        s.classList.add('fixed');
+        this.textContent = '✓ Fixed';
+        update();
+      });
+    });
+  })();
+</script>
+</body>
+</html>

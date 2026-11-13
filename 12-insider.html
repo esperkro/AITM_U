@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>
+  (function () { try { if (!localStorage.getItem("shadowproof_profile_v1")) window.location.replace("signin.html"); } catch (e) {} })();
+</script>
+<script src="labs-access.js"></script>
+<script>SPAccess.guard('insider');</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Module 15 // The Careless Hand — Insider Threat &amp; Data Handling</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&family=Fraunces:ital,wght@0,400;0,600;0,800;1,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="module-kit.css">
+<style>
+  :root { --accent: #b48fff; --accent-rgb: 180, 143, 255; --bg: #0a0810; --bg-2: #100d17; --surface: #15111f; }
+  .compose { background: #fff; color: #1d232a; border-radius: 6px; overflow: hidden; font-family: Segoe UI, -apple-system, sans-serif; }
+  .compose-row { padding: 10px 18px; border-bottom: 1px solid #e3e6ea; font-size: 14px; }
+  .compose-row b { color: #555; display: inline-block; width: 64px; font-weight: 500; }
+  .compose-body { padding: 18px; font-size: 14.5px; line-height: 1.6; }
+  .chip { display: inline-block; background: #e8eefc; border-radius: 12px; padding: 1px 10px; margin: 2px 4px 2px 0; font-size: 13px; }
+  .chip.ext { background: #fde7e9; }
+  .attach-pill { display: inline-block; border: 1px solid #ccd; padding: 6px 12px; border-radius: 4px; margin-top: 10px; font-size: 13px; }
+  .compose .flag { border-bottom-color: #a4262c; background: rgba(164, 38, 44, .06); }
+  .compose .flag.found { background: rgba(164, 38, 44, .2); }
+  .levels { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin: 20px 0; }
+  .lvl { padding: 16px; border: 1px solid var(--border); background: var(--surface); }
+  .lvl b { display: block; font-size: 12px; letter-spacing: .15em; margin-bottom: 6px; }
+  .lvl span { font-size: 12.5px; color: var(--text-dim); }
+  @media (max-width: 760px) { .levels { grid-template-columns: 1fr 1fr; } }
+</style>
+</head>
+<body>
+
+<div class="mk-bar">
+  <a href="index.html">← Exit</a>
+  <span class="mk-center">Module 15 · Insider Threat &amp; Data Handling</span>
+  <span id="clock">--:--:--</span>
+</div>
+
+<nav class="mk-chapters" aria-label="Chapters">
+  <span class="mk-chapter active">01 · Briefing</span>
+  <span class="mk-chapter">02 · The Send Button</span>
+  <span class="mk-chapter">03 · Where Data Belongs</span>
+  <span class="mk-chapter">04 · Playbook</span>
+</nav>
+
+<section class="scene active" id="scene-1">
+  <div class="mk-hero">
+    <div class="mk-kicker">Module 15 · Tier 04</div>
+    <div class="mk-icon">📁</div>
+    <h1 class="mk-title">The Careless <span class="italic">Hand.</span></h1>
+    <p class="mk-lede">Most data leaks don't involve a hacker. They involve a tired person, an autocomplete, a "quick" upload to a personal drive, or a spreadsheet pasted into a public AI chatbot.</p>
+    <div class="mk-meta">Runtime · 8 minutes · Interactive</div>
+    <div class="mk-stats">
+      <div class="mk-stat"><div class="mk-stat-num">Human error</div><div class="mk-stat-label">— misdelivery, misconfiguration, oversharing — is behind a large share of reported breaches</div></div>
+      <div class="mk-stat"><div class="mk-stat-num">1 field</div><div class="mk-stat-label">— the "To:" line — is the most common way sensitive data leaves a company</div></div>
+      <div class="mk-stat"><div class="mk-stat-num">AI tools</div><div class="mk-stat-label">are a new leak path when confidential data is pasted into unapproved services</div></div>
+    </div>
+  </div>
+  <div class="mk-content" style="padding-top:0;">
+    <p class="mk-prose">"Insider threat" sounds like spies. Occasionally it is — a disgruntled employee taking a client list. But far more often it's <strong>a good employee in a hurry.</strong> This module is about the small habits that keep company and customer data where it belongs, and spotting the rare warning signs of something worse.</p>
+    <div class="nav-row">
+      <a href="index.html" class="btn">← Back to Suite</a>
+      <button class="btn primary" data-go="2">Open Your Outbox →</button>
+    </div>
+  </div>
+</section>
+
+<section class="scene" id="scene-2">
+  <div class="mk-content">
+    <div class="mk-label">Act 02 · Thursday, 6:47 PM</div>
+    <h2 class="mk-h2">Before you hit <span class="italic">send.</span></h2>
+    <p class="mk-prose">You're rushing to send the member list to the marketing agency before you leave. Review the email — find everything wrong with it.</p>
+
+    <div class="flag-zone">
+      <div class="compose">
+        <div class="compose-row"><b>To:</b> <span class="chip">Priya Shah (Marketing)</span><button class="flag"><span class="chip ext">priya.shah@gmail.com</span><span class="why"><b>Autocomplete picked a personal address</b>Two Priyas in your contacts — the one you clicked is a personal Gmail. Autocomplete misdelivery is one of the most common data leaks.</span></button></div>
+        <div class="compose-row"><b>Cc:</b> <button class="flag"><span class="chip ext">team@brightwave-agency.com</span><span class="why"><b>Whole external distribution list</b>Is everyone at the agency authorised to see member data? Send only to the named contact who needs it.</span></button></div>
+        <div class="compose-row"><b>Subject:</b> member list for campaign</div>
+        <div class="compose-body">
+          Hi Priya, here's the list for next month's campaign.
+          <button class="flag">I included everything just in case — SSNs, DOBs, account balances.<span class="why"><b>Sending more than needed</b>A marketing campaign needs names and emails at most. "Data minimisation": share only the fields required for the task.</span></button>
+          <br>Thanks!<br>
+          <button class="flag"><span class="attach-pill">📎 Member_Export_FULL.xlsx · 18 MB · not encrypted</span><span class="why"><b>Unprotected attachment</b>Sensitive data should go through the approved secure file-share or encrypted email — with access limited and expiring — not as a plain attachment.</span></button>
+        </div>
+      </div>
+      <div class="flag-meter"><span>Problems found: <b class="flag-count">0</b> / <span class="flag-total"></span></span><span class="muted">Click the problems</span></div>
+      <div class="flag-log"></div>
+    </div>
+
+    <div class="mk-prompt">▸ You hit send before you noticed. The email went to the personal Gmail. Now what?</div>
+    <div class="choice-set">
+      <button class="choice" data-verdict="bad">Say nothing — it's probably fine, and you'll look bad.
+        <span class="why">Staying silent is what turns a mistake into a serious incident. Many regulations require the company to assess and possibly report data exposures within strict time limits — they can only do that if they know.</span></button>
+      <button class="choice" data-verdict="meh">Try to recall the message and email Priya asking her to delete it.
+        <span class="why">Recall rarely works for external addresses. Contacting the recipient may be part of the fix — but Security/Privacy should guide it and document it.</span></button>
+      <button class="choice" data-verdict="good">Report it to your manager and Security/Privacy right away, with exactly what was sent and to whom.
+        <span class="why">Correct. Honest, fast reporting is what good organisations reward. The privacy team can contain it, contact the recipient properly, and meet any legal obligations.</span></button>
+    </div>
+
+    <div class="nav-row">
+      <button class="btn" data-go="1">← Back</button>
+      <button class="btn primary" data-go="3">Where Data Belongs →</button>
+    </div>
+  </div>
+</section>
+
+<section class="scene" id="scene-3">
+  <div class="mk-content">
+    <div class="mk-label">Act 03 · Where data belongs</div>
+    <h2 class="mk-h2">Know what you're <span class="italic">holding.</span></h2>
+    <p class="mk-prose">Most organisations label data by sensitivity. Your company's names may differ, but the idea is the same:</p>
+    <div class="levels">
+      <div class="lvl" style="border-top:3px solid #40ff8a;"><b style="color:#40ff8a;">PUBLIC</b><span>Website content, press releases, published rates.</span></div>
+      <div class="lvl" style="border-top:3px solid #5ab9ff;"><b style="color:#5ab9ff;">INTERNAL</b><span>Org charts, internal announcements, procedures.</span></div>
+      <div class="lvl" style="border-top:3px solid #ffb84d;"><b style="color:#ffb84d;">CONFIDENTIAL</b><span>Contracts, financial reports, strategy, HR data.</span></div>
+      <div class="lvl" style="border-top:3px solid #ff4757;"><b style="color:#ff4757;">RESTRICTED</b><span>Customer/member PII, SSNs, account numbers, credentials.</span></div>
+    </div>
+
+    <h3 class="mk-h3">OK or not OK?</h3>
+    <div class="mk-panel">
+      <div class="triage">
+        <div class="tri" data-answer="danger">
+          <div><div class="tri-name">Pasting a customer complaint (with name and account number) into a free public AI chatbot to draft a reply</div></div>
+          <div class="tri-btns"><button data-pick="safe">OK</button><button data-pick="danger">Not OK</button></div>
+          <div class="why">Public AI tools may store and train on what you paste. Use only company-approved AI tools, and remove personal details unless the tool is approved for them.</div>
+        </div>
+        <div class="tri" data-answer="danger">
+          <div><div class="tri-name">Uploading a confidential report to your personal Google Drive to work on it at the weekend</div></div>
+          <div class="tri-btns"><button data-pick="safe">OK</button><button data-pick="danger">Not OK</button></div>
+          <div class="why">Company data leaves company control (and monitoring). Use approved remote access or company cloud storage instead.</div>
+        </div>
+        <div class="tri" data-answer="safe">
+          <div><div class="tri-name">Sharing a confidential file with a named colleague via the company's SharePoint/OneDrive link set to "specific people"</div></div>
+          <div class="tri-btns"><button data-pick="safe">OK</button><button data-pick="danger">Not OK</button></div>
+          <div class="why">Right tool, right audience, access controlled. Avoid "anyone with the link" for anything beyond public data.</div>
+        </div>
+        <div class="tri" data-answer="danger">
+          <div><div class="tri-name">Leaving printed member statements on the shared printer while you grab coffee</div></div>
+          <div class="tri-btns"><button data-pick="safe">OK</button><button data-pick="danger">Not OK</button></div>
+          <div class="why">Collect printouts immediately (use secure "pull" printing if available) and shred restricted paper — never the regular bin.</div>
+        </div>
+        <div class="tri" data-answer="danger">
+          <div><div class="tri-name">Forwarding work emails to your personal account "for reference" before you change jobs</div></div>
+          <div class="tri-btns"><button data-pick="safe">OK</button><button data-pick="danger">Not OK</button></div>
+          <div class="why">This is data exfiltration — even with good intentions — and may breach your agreement and the law. Ask your manager what you may keep.</div>
+        </div>
+        <div class="tri" data-answer="safe">
+          <div><div class="tri-name">Posting a published press release on your LinkedIn</div></div>
+          <div class="tri-btns"><button data-pick="safe">OK</button><button data-pick="danger">Not OK</button></div>
+          <div class="why">Public data is meant to be shared. Just don't add internal context that isn't public yet.</div>
+        </div>
+      </div>
+      <div class="tri-score"></div>
+    </div>
+
+    <h3 class="mk-h3">When it's not an accident</h3>
+    <p class="mk-prose">Malicious insiders are rare, but these behaviours are worth reporting confidentially to Security or HR — <strong>not investigating yourself</strong>:</p>
+    <div class="reveal-grid">
+      <button class="reveal"><span class="reveal-front">Unusual data hoarding</span><span class="reveal-hint">Tap to reveal</span><span class="why">Bulk downloads, copying to USB, or accessing systems unrelated to their role — especially before leaving.</span></button>
+      <button class="reveal"><span class="reveal-front">Asking for access they don't need</span><span class="reveal-hint">Tap to reveal</span><span class="why">Repeated requests for credentials, shared logins, or "just borrowing your account".</span></button>
+      <button class="reveal"><span class="reveal-front">Bypassing controls</span><span class="reveal-hint">Tap to reveal</span><span class="why">Disabling security tools, using unapproved file-sharing or personal email for work, working odd hours on sensitive systems without reason.</span></button>
+    </div>
+
+    <div class="nav-row">
+      <button class="btn" data-go="2">← Back</button>
+      <button class="btn primary" data-go="4">The Playbook →</button>
+    </div>
+  </div>
+</section>
+
+<section class="scene" id="scene-4">
+  <div class="mk-content">
+    <div class="mk-label">Act 04 · Your playbook</div>
+    <h2 class="mk-h2">Handle data like it's <span class="italic">someone's life.</span></h2>
+    <div class="rules">
+      <div class="rule"><div class="rule-num">RULE 01</div><div class="rule-title">Check the To: line.</div><div class="rule-body">Pause before send on anything sensitive. Autocomplete is fast — and wrong surprisingly often.</div></div>
+      <div class="rule"><div class="rule-num">RULE 02</div><div class="rule-title">Share the minimum.</div><div class="rule-body">Only the fields, people, and time period the task requires. Strip what isn't needed.</div></div>
+      <div class="rule"><div class="rule-num">RULE 03</div><div class="rule-title">Approved tools only.</div><div class="rule-body">Company storage, secure file-share, encrypted email, approved AI tools. No personal drives or inboxes.</div></div>
+      <div class="rule"><div class="rule-num">RULE 04</div><div class="rule-title">Paper counts.</div><div class="rule-body">Collect printouts, lock away documents, shred restricted paper.</div></div>
+      <div class="rule"><div class="rule-num">RULE 05</div><div class="rule-title">Mistakes: report fast.</div><div class="rule-body">Misdirected email, lost device, wrong file shared — tell Security immediately. Speed limits the damage.</div></div>
+      <div class="rule"><div class="rule-num">RULE 06</div><div class="rule-title">Concerns: report quietly.</div><div class="rule-body">Suspicious behaviour goes to Security or HR confidentially. Don't confront or investigate yourself.</div></div>
+    </div>
+    <div class="pull-quote">The firewall can't stop you from attaching the wrong file. Only a pause can.</div>
+
+    <div class="mk-complete">
+      <h3>Steady <span class="italic">hands.</span></h3>
+      <p>Pass the knowledge check to earn your Careless Hand badge.</p>
+      <button class="btn primary" id="startCheckBtn">Take the Knowledge Check →</button>
+    </div>
+    <div id="shadowproof-assessment"></div>
+
+    <div class="nav-row">
+      <button class="btn" data-go="3">← Back</button>
+      <a href="index.html" class="btn">Return to Suite →</a>
+    </div>
+  </div>
+</section>
+
+<script src="questions.js"></script>
+<script src="assessment.js"></script>
+<script src="module-kit.js"></script>
+<script>ModuleKit.init({ moduleId: 'insider', moduleTitle: 'The Careless Hand' });</script>
+</body>
+</html>

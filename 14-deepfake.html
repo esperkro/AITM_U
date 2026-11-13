@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>
+  (function () { try { if (!localStorage.getItem("shadowproof_profile_v1")) window.location.replace("signin.html"); } catch (e) {} })();
+</script>
+<script src="labs-access.js"></script>
+<script>SPAccess.guard('deepfake');</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Module 10 // The Perfect Copy — Deepfakes &amp; AI Impersonation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&family=Fraunces:ital,wght@0,400;0,600;0,800;1,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="module-kit.css">
+<style>
+  :root { --accent: #c9a6ff; --accent-rgb: 201, 166, 255; --bg: #0a0810; --bg-2: #110d19; --surface: #161121; }
+  .call { background: #1b1d24; border-radius: 10px; overflow: hidden; font-family: Segoe UI, -apple-system, sans-serif; }
+  .call-top { display: flex; justify-content: space-between; padding: 10px 16px; background: #24262f; color: #c9ccd6; font-size: 12px; gap: 10px; flex-wrap: wrap; }
+  .call-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 8px; padding: 8px; }
+  .tile { background: #2c2f3a; border-radius: 8px; min-height: 160px; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; color: #e6e8ef; }
+  .tile.main { min-height: 260px; }
+  .avatar { width: 84px; height: 84px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 28px; color: #fff; }
+  .tile-name { position: absolute; left: 10px; bottom: 8px; font-size: 12px; background: rgba(0,0,0,.45); padding: 2px 8px; border-radius: 4px; }
+  .side-tiles { display: grid; gap: 8px; }
+  .side-tiles .tile { min-height: 80px; }
+  .side-tiles .avatar { width: 44px; height: 44px; font-size: 15px; }
+  .call-chat { padding: 12px 16px; border-top: 1px solid #333744; color: #dfe2ea; font-size: 14px; }
+  .call .flag { border-bottom-color: #ff8fa3; background: rgba(255, 143, 163, .08); }
+  .call .flag.found { background: rgba(255, 71, 87, .25); }
+  .glitch { animation: glitch 2.6s infinite; }
+  @keyframes glitch { 0%, 92%, 100% { filter: none; transform: none; } 94% { filter: hue-rotate(40deg) blur(1px); transform: translateX(2px); } 96% { filter: none; transform: translateX(-2px); } }
+  .rec { color: #ff4757; }
+  @media (max-width: 760px) { .call-grid { grid-template-columns: 1fr; } .side-tiles { grid-template-columns: 1fr 1fr 1fr; } }
+</style>
+</head>
+<body>
+
+<div class="mk-bar">
+  <a href="index.html">← Exit</a>
+  <span class="mk-center">Module 10 · Deepfakes &amp; AI Impersonation</span>
+  <span id="clock">--:--:--</span>
+</div>
+
+<nav class="mk-chapters" aria-label="Chapters">
+  <span class="mk-chapter active">01 · Briefing</span>
+  <span class="mk-chapter">02 · The Call</span>
+  <span class="mk-chapter">03 · Verify Differently</span>
+  <span class="mk-chapter">04 · Playbook</span>
+</nav>
+
+<section class="scene active" id="scene-1">
+  <div class="mk-hero">
+    <div class="mk-kicker">Module 10 · Tier 02</div>
+    <div class="mk-icon">🎭</div>
+    <h1 class="mk-title">The Perfect <span class="italic">Copy.</span></h1>
+    <p class="mk-lede">Your CFO is on the video call. So is the controller, and someone from legal. They look right. They sound right. Every one of them is synthetic.</p>
+    <div class="mk-meta">Runtime · 9 minutes · Interactive</div>
+    <div class="mk-stats">
+      <div class="mk-stat"><div class="mk-stat-num">$25M</div><div class="mk-stat-label">sent by a finance employee in 2024 after a video call where every "colleague" was a deepfake</div></div>
+      <div class="mk-stat"><div class="mk-stat-num">Seconds</div><div class="mk-stat-label">of public audio — a webinar, a voicemail — is enough to clone a voice</div></div>
+      <div class="mk-stat"><div class="mk-stat-num">Process</div><div class="mk-stat-label">beats perception: you can't reliably spot a good fake by eye or ear</div></div>
+    </div>
+  </div>
+  <div class="mk-content" style="padding-top:0;">
+    <p class="mk-prose">For decades "I saw them" or "I heard their voice" meant you knew who you were dealing with. That's over. AI can now generate faces, voices, and writing style convincingly enough to fool coworkers. <strong>The defense isn't becoming a better detective — it's verifying requests through a channel the attacker doesn't control.</strong></p>
+    <div class="nav-row">
+      <a href="index.html" class="btn">← Back to Suite</a>
+      <button class="btn primary" data-go="2">Join the Call →</button>
+    </div>
+  </div>
+</section>
+
+<section class="scene" id="scene-2">
+  <div class="mk-content">
+    <div class="mk-label">Act 02 · Urgent: confidential acquisition</div>
+    <h2 class="mk-h2">Everyone looks <span class="italic">right.</span></h2>
+    <p class="mk-prose">You got an email from the CFO inviting you to a "confidential" call. You join. Click everything that should make you pause.</p>
+
+    <div class="flag-zone">
+      <div class="call">
+        <div class="call-top"><span>🔒 <button class="flag">Meeting via external link · meet-secure-conf.net<span class="why"><b>Unusual platform/link</b>The meeting was set up outside your company's normal tool, from an emailed link. Attackers prefer platforms and accounts they control.</span></button></span><span class="rec">● REC</span><span>00:07:41</span></div>
+        <div class="call-grid">
+          <div class="tile main glitch"><div class="avatar" style="background:#7a5af8;">DR</div><div class="tile-name">Diane Ross (CFO)</div></div>
+          <div class="side-tiles">
+            <div class="tile"><div class="avatar" style="background:#0ea5e9;">MK</div><div class="tile-name"><button class="flag">Mark K. — camera off<span class="why"><b>Cameras off, "bad connection"</b>Other participants staying silent or off-camera reduces how much the attacker has to fake.</span></button></div></div>
+            <div class="tile"><div class="avatar" style="background:#f97316;">LG</div><div class="tile-name">Legal</div></div>
+            <div class="tile"><div class="avatar" style="background:#334155;">YOU</div><div class="tile-name">You</div></div>
+          </div>
+        </div>
+        <div class="call-chat">
+          <p><b>Diane:</b> "Thanks for jumping on. <button class="flag">This acquisition is under NDA — don't discuss it with anyone, including your manager.<span class="why"><b>Secrecy that isolates you</b>Forbidding you from talking to your own manager is designed to block the one check that would expose the fraud.</span></button>"</p>
+          <p style="margin-top:8px;"><b>Diane:</b> "<button class="flag">We need fifteen wire transfers to these new accounts before the market closes today.<span class="why"><b>Urgent money to new accounts</b>New payee + unusual amount + hard deadline is the core of almost every payment fraud, deepfake or not.</span></button> The details are in the chat."</p>
+          <p style="margin-top:8px;"><b>Diane:</b> "Sorry, <button class="flag">my video keeps freezing — hotel Wi-Fi.<span class="why"><b>Excuses for glitches</b>Pre-explaining odd lip-sync, blurring, or lag. Visual glitches are a hint, but a good deepfake may have none — so don't rely on spotting them.</span></button>"</p>
+        </div>
+      </div>
+      <div class="flag-meter"><span>Red flags found: <b class="flag-count">0</b> / <span class="flag-total"></span></span><span class="muted">Click the suspicious details</span></div>
+      <div class="flag-log"></div>
+    </div>
+
+    <div class="mk-prompt">▸ Diane asks you to confirm you'll start the transfers. You say:</div>
+    <div class="choice-set">
+      <button class="choice" data-verdict="bad">"Of course — I can see it's you." Then start the wires.
+        <span class="why">Seeing is no longer verification. This is exactly how the 2024 $25M case unfolded: the employee's doubts faded once they "saw" colleagues on video.</span></button>
+      <button class="choice" data-verdict="meh">Ask Diane a personal question on the call to test her.
+        <span class="why">Better than nothing, but the attacker may have researched answers, can dodge ("not now, we're under time pressure"), and you're still verifying inside the channel they control.</span></button>
+      <button class="choice" data-verdict="good">"I'll start once I've confirmed through our normal approval process." Then hang up, call Diane on the number in the company directory, and follow payment procedures.
+        <span class="why">Exactly right. An <strong>out-of-band callback</strong> to a number you already have defeats every deepfake. And standard payment controls (dual approval, payee verification) exist precisely for this. A real executive will understand.</span></button>
+    </div>
+
+    <div class="nav-row">
+      <button class="btn" data-go="1">← Back</button>
+      <button class="btn primary" data-go="3">Verify Differently →</button>
+    </div>
+  </div>
+</section>
+
+<section class="scene" id="scene-3">
+  <div class="mk-content">
+    <div class="mk-label">Act 03 · Verify differently</div>
+    <h2 class="mk-h2">Trust the <span class="italic">channel,</span> not the face.</h2>
+    <p class="mk-prose">For each request, decide: can you act on it as received, or do you need to verify through a separate, known channel first?</p>
+    <div class="mk-panel">
+      <div class="triage">
+        <div class="tri" data-answer="danger">
+          <div><div class="tri-name">Voice note from your "CEO" on WhatsApp asking you to buy gift cards for a client event</div><div class="tri-sub">The voice is spot-on</div></div>
+          <div class="tri-btns"><button data-pick="safe">Act on it</button><button data-pick="danger">Verify first</button></div>
+          <div class="why">Gift cards + unusual channel + urgency. Voice clones are cheap. Verify via your known company channel — and gift-card requests are a fraud signature on their own.</div>
+        </div>
+        <div class="tri" data-answer="danger">
+          <div><div class="tri-name">Video call from "IT" asking you to share your screen and approve a login</div><div class="tri-sub">Their face matches the IT staff photo</div></div>
+          <div class="tri-btns"><button data-pick="safe">Act on it</button><button data-pick="danger">Verify first</button></div>
+          <div class="why">IT never needs you to approve a login for them. Hang up and contact the service desk through the official portal or number.</div>
+        </div>
+        <div class="tri" data-answer="safe">
+          <div><div class="tri-name">Your manager, in the recurring team meeting, reminds everyone to submit timesheets</div><div class="tri-sub">Company meeting tool · scheduled weeks ago</div></div>
+          <div class="tri-btns"><button data-pick="safe">Act on it</button><button data-pick="danger">Verify first</button></div>
+          <div class="why">Routine, expected, low-risk, in your normal channel. Verification effort should scale with what's being asked.</div>
+        </div>
+        <div class="tri" data-answer="danger">
+          <div><div class="tri-name">Your "child" calls crying from an unknown number: they're in trouble and need money sent now</div><div class="tri-sub">It sounds exactly like them</div></div>
+          <div class="tri-btns"><button data-pick="safe">Act on it</button><button data-pick="danger">Verify first</button></div>
+          <div class="why">A family emergency scam using a cloned voice. Hang up and call your child (or another family member) on their known number. Consider agreeing a family "safe word".</div>
+        </div>
+        <div class="tri" data-answer="danger">
+          <div><div class="tri-name">Vendor emails, in their usual friendly style, that their bank details changed</div><div class="tri-sub">Writing style perfectly matches past emails</div></div>
+          <div class="tri-btns"><button data-pick="safe">Act on it</button><button data-pick="danger">Verify first</button></div>
+          <div class="why">AI can mimic writing style from a compromised mailbox. Bank-detail changes always require a callback to a number already on file.</div>
+        </div>
+      </div>
+      <div class="tri-score"></div>
+    </div>
+
+    <h3 class="mk-h3">Clues that <em>might</em> show a fake</h3>
+    <div class="reveal-grid">
+      <button class="reveal"><span class="reveal-front">Video</span><span class="reveal-hint">Tap to reveal</span><span class="why">Odd blinking, lip-sync drift, blurring at the hairline or when hands pass the face, lighting that doesn't match. Ask them to turn their head fully sideways.</span></button>
+      <button class="reveal"><span class="reveal-front">Voice</span><span class="reveal-hint">Tap to reveal</span><span class="why">Flat emotion, odd pacing, no breathing sounds, unusual background silence, struggling with unexpected questions.</span></button>
+      <button class="reveal"><span class="reveal-front">Behaviour</span><span class="reveal-hint">Tap to reveal</span><span class="why">Secrecy, urgency, new channels, refusing a callback. <strong>This is the most reliable clue</strong> — technical glitches are getting rarer every month.</span></button>
+    </div>
+
+    <div class="nav-row">
+      <button class="btn" data-go="2">← Back</button>
+      <button class="btn primary" data-go="4">The Playbook →</button>
+    </div>
+  </div>
+</section>
+
+<section class="scene" id="scene-4">
+  <div class="mk-content">
+    <div class="mk-label">Act 04 · Your playbook</div>
+    <h2 class="mk-h2">When anyone can be <span class="italic">anyone.</span></h2>
+    <div class="rules">
+      <div class="rule"><div class="rule-num">RULE 01</div><div class="rule-title">Call back on a known number.</div><div class="rule-body">For money, credentials, data, or access: end the conversation and contact the person via the directory, not via the message they sent.</div></div>
+      <div class="rule"><div class="rule-num">RULE 02</div><div class="rule-title">Never skip the process.</div><div class="rule-body">Dual approvals and payee verification exist for exactly this. "The CEO said to skip it" is a red flag, not an exception.</div></div>
+      <div class="rule"><div class="rule-num">RULE 03</div><div class="rule-title">Secrecy is a signal.</div><div class="rule-body">Real confidential deals still involve your manager and normal controls. Being told to keep it from them is the tell.</div></div>
+      <div class="rule"><div class="rule-num">RULE 04</div><div class="rule-title">Use code words at home.</div><div class="rule-body">Agree a family safe word for emergencies. A cloned voice won't know it.</div></div>
+      <div class="rule"><div class="rule-num">RULE 05</div><div class="rule-title">Report attempts.</div><div class="rule-body">If someone impersonated an executive to you, they're likely trying others. Report it — even if you didn't fall for it.</div></div>
+    </div>
+    <div class="pull-quote">You can't out-see a deepfake. You can out-process one.</div>
+
+    <div class="mk-complete">
+      <h3>Copy <span class="italic">exposed.</span></h3>
+      <p>Pass the knowledge check to earn your Perfect Copy badge.</p>
+      <button class="btn primary" id="startCheckBtn">Take the Knowledge Check →</button>
+    </div>
+    <div id="shadowproof-assessment"></div>
+
+    <div class="nav-row">
+      <button class="btn" data-go="3">← Back</button>
+      <a href="index.html" class="btn">Return to Suite →</a>
+    </div>
+  </div>
+</section>
+
+<script src="questions.js"></script>
+<script src="assessment.js"></script>
+<script src="module-kit.js"></script>
+<script>ModuleKit.init({ moduleId: 'deepfake', moduleTitle: 'The Perfect Copy' });</script>
+</body>
+</html>

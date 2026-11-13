@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>
+  (function () { try { if (!localStorage.getItem("shadowproof_profile_v1")) window.location.replace("signin.html"); } catch (e) {} })();
+</script>
+<script src="labs-access.js"></script>
+<script>SPAccess.guard('usb');</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Module 11 // The Gift Nobody Sent — USB Drops &amp; Rogue Devices</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&family=Fraunces:ital,wght@0,400;0,600;0,800;1,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="module-kit.css">
+<style>
+  :root { --accent: #ffb84d; --accent-rgb: 255, 184, 77; --bg: #100a08; --bg-2: #160f0b; --surface: #1b130e; }
+  .lot { position: relative; background: #24262b; border-radius: 6px; height: 280px; overflow: hidden; border: 1px solid var(--border); }
+  .lot-lines { position: absolute; inset: 0; background: repeating-linear-gradient(90deg, transparent 0 118px, #e8e3c9 118px 122px); opacity: .35; }
+  .car { position: absolute; width: 90px; height: 150px; border-radius: 18px; top: 20px; }
+  .usb-drop {
+    position: absolute; left: 47%; bottom: 40px; transform: rotate(-18deg); cursor: pointer;
+    background: none; border: none; padding: 6px; font-size: 0;
+  }
+  .usb-drop .stick { display: block; width: 70px; height: 24px; background: linear-gradient(#2f6fe4, #1c49a6); border-radius: 4px; position: relative; box-shadow: 0 0 22px rgba(255, 184, 77, .55); }
+  .usb-drop .stick::before { content: ''; position: absolute; right: -16px; top: 5px; width: 16px; height: 14px; background: #c9c9c9; border-radius: 1px; }
+  .usb-drop .stick::after { content: 'PAYROLL Q4'; position: absolute; left: 6px; top: 5px; font: 700 9px 'JetBrains Mono', monospace; color: #fff; }
+  .lot-label { position: absolute; left: 14px; top: 12px; font-size: 11px; letter-spacing: .15em; color: #c9ccd6; text-transform: uppercase; }
+  .cable { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .cable-card { background: var(--bg-2); border: 1px solid var(--border); padding: 18px; text-align: center; }
+  .cable-card .big { font-size: 40px; }
+</style>
+</head>
+<body>
+
+<div class="mk-bar">
+  <a href="index.html">← Exit</a>
+  <span class="mk-center">Module 11 · USB Drops &amp; Rogue Devices</span>
+  <span id="clock">--:--:--</span>
+</div>
+
+<nav class="mk-chapters" aria-label="Chapters">
+  <span class="mk-chapter active">01 · Briefing</span>
+  <span class="mk-chapter">02 · The Parking Lot</span>
+  <span class="mk-chapter">03 · Trust the Hardware?</span>
+  <span class="mk-chapter">04 · Playbook</span>
+</nav>
+
+<section class="scene active" id="scene-1">
+  <div class="mk-hero">
+    <div class="mk-kicker">Module 11 · Tier 03</div>
+    <div class="mk-icon">💾</div>
+    <h1 class="mk-title">The Gift Nobody <span class="italic">Sent.</span></h1>
+    <p class="mk-lede">A labeled USB stick by your car. A free charging cable at a conference. A "replacement keyboard" that showed up in the mail. Every one of them can be a computer pretending to be something harmless.</p>
+    <div class="mk-meta">Runtime · 6 minutes · Interactive</div>
+    <div class="mk-stats">
+      <div class="mk-stat"><div class="mk-stat-num">~ 45–50%</div><div class="mk-stat-label">of dropped USB sticks got plugged in during a well-known university field study</div></div>
+      <div class="mk-stat"><div class="mk-stat-num">&lt; 1 sec</div><div class="mk-stat-label">for a malicious "keyboard" device to type commands once plugged in</div></div>
+      <div class="mk-stat"><div class="mk-stat-num">By mail</div><div class="mk-stat-label">criminals have posted USB "gifts" to companies, posing as retailers and agencies</div></div>
+    </div>
+  </div>
+  <div class="mk-content" style="padding-top:0;">
+    <p class="mk-prose">Hardware attacks exploit the oldest instinct there is: <strong>curiosity, and the urge to return lost property.</strong> The device doesn't need you to open a file. Some announce themselves as a keyboard and type commands faster than you can blink. Others just need a few seconds of power.</p>
+    <div class="nav-row">
+      <a href="index.html" class="btn">← Back to Suite</a>
+      <button class="btn primary" data-go="2">Walk to Your Car →</button>
+    </div>
+  </div>
+</section>
+
+<section class="scene" id="scene-2">
+  <div class="mk-content">
+    <div class="mk-label">Act 02 · Monday, 8:14 AM</div>
+    <h2 class="mk-h2">Something on the <span class="italic">ground.</span></h2>
+    <p class="mk-prose">You spot something near your parking space. Click it.</p>
+    <div class="lot">
+      <div class="lot-lines"></div>
+      <div class="lot-label">Staff parking · Level 2</div>
+      <div class="car" style="left:8%;background:#5b6474;"></div>
+      <div class="car" style="left:30%;background:#8b2f2f;"></div>
+      <div class="car" style="left:68%;background:#3b4b3a;"></div>
+      <button class="usb-drop" id="usbDrop" type="button" aria-label="A USB stick on the ground"><span class="stick"></span></button>
+    </div>
+    <div id="usbFound" style="display:none;">
+      <div class="mk-panel accent" style="margin-top:20px;">A blue USB stick, labeled <strong>"PAYROLL Q4 — CONFIDENTIAL"</strong>. It's in the company's colours. There's a little logo sticker.</div>
+      <div class="mk-prompt">▸ What do you do with it?</div>
+      <div class="choice-set">
+        <button class="choice" data-verdict="bad">Plug it into your work laptop to see whose it is so you can return it.
+          <span class="why">The kindest instinct — and the exact one attackers count on. The label "PAYROLL" is bait chosen to make you curious. Plugging it in can run code instantly, even without you opening a file.</span></button>
+        <button class="choice" data-verdict="bad">Take it home and check it on your personal computer instead — safer for work.
+          <span class="why">Now your home computer, your family's accounts, and anything on that network are at risk — and many people also access work from home. Never plug in unknown devices anywhere.</span></button>
+        <button class="choice" data-verdict="meh">Leave it where it is.
+          <span class="why">You didn't take the bait — good. But a coworker might. Drops are often deliberate and placed in multiple spots.</span></button>
+        <button class="choice" data-verdict="good">Don't plug it in anywhere. Hand it to IT/Security (or reception for Security) and tell them where you found it.
+          <span class="why">Perfect. Security can examine it safely, warn staff, and check whether others were found. If it was genuinely lost, Security can return it — safely.</span></button>
+      </div>
+    </div>
+
+    <div class="nav-row">
+      <button class="btn" data-go="1">← Back</button>
+      <button class="btn primary" data-go="3">Trust the Hardware? →</button>
+    </div>
+  </div>
+</section>
+
+<section class="scene" id="scene-3">
+  <div class="mk-content">
+    <div class="mk-label">Act 03 · Plug it in, or not?</div>
+    <h2 class="mk-h2">Hardware you didn't <span class="italic">buy.</span></h2>
+    <p class="mk-prose">Sort each device: fine to connect, or don't connect?</p>
+    <div class="mk-panel">
+      <div class="triage">
+        <div class="tri" data-answer="danger">
+          <div><div class="tri-name">Branded USB stick in a "thank you for your business" envelope</div><div class="tri-sub">Mailed to your desk; you don't recognize the sender</div></div>
+          <div class="tri-btns"><button data-pick="safe">Connect</button><button data-pick="danger">Don't connect</button></div>
+          <div class="why">Unsolicited hardware by mail is a known attack. Hand it to IT.</div>
+        </div>
+        <div class="tri" data-answer="danger">
+          <div><div class="tri-name">"Free" charging cable from a stall at a conference</div><div class="tri-sub">Looks like a normal USB-C cable</div></div>
+          <div class="tri-btns"><button data-pick="safe">Connect</button><button data-pick="danger">Don't connect</button></div>
+          <div class="why">Malicious cables exist that look identical to normal ones and contain hidden electronics. Use your own cable and charger.</div>
+        </div>
+        <div class="tri" data-answer="danger">
+          <div><div class="tri-name">Public USB charging port at an airport</div><div class="tri-sub">Your phone is at 4%</div></div>
+          <div class="tri-btns"><button data-pick="safe">Connect</button><button data-pick="danger">Don't connect</button></div>
+          <div class="why">Prefer a wall outlet with your own charger, or carry a power bank. If you must use the port, a "data blocker" adapter (charge-only) helps. Never tap "Trust this computer" on your phone.</div>
+        </div>
+        <div class="tri" data-answer="safe">
+          <div><div class="tri-name">Headset issued by IT through the normal equipment request</div><div class="tri-sub">Asset tag, delivered by IT</div></div>
+          <div class="tri-btns"><button data-pick="safe">Connect</button><button data-pick="danger">Don't connect</button></div>
+          <div class="why">Known source, normal process. This is what trustworthy hardware looks like.</div>
+        </div>
+        <div class="tri" data-answer="danger">
+          <div><div class="tri-name">Visitor asks to plug their USB drive into your PC to print their presentation</div><div class="tri-sub">Friendly, in a hurry, meeting starts in 5 minutes</div></div>
+          <div class="tri-btns"><button data-pick="safe">Connect</button><button data-pick="danger">Don't connect</button></div>
+          <div class="why">Politely decline and point them to reception or IT — or ask them to email it to the organizer. Time pressure is part of the pitch.</div>
+        </div>
+        <div class="tri" data-answer="danger">
+          <div><div class="tri-name">Unknown small device plugged into the back of a meeting-room PC</div><div class="tri-sub">Looks like a tiny adapter between keyboard and PC</div></div>
+          <div class="tri-btns"><button data-pick="safe">Connect</button><button data-pick="danger">Don't connect</button></div>
+          <div class="why">Could be a keylogger. Don't unplug it yourself — report it to Security so they can investigate and preserve evidence.</div>
+        </div>
+      </div>
+      <div class="tri-score"></div>
+    </div>
+
+    <div class="cable">
+      <div class="cable-card"><div class="big">🔌</div><b>Normal cable</b><div class="dim" style="font-size:13px;">Power + data wires</div></div>
+      <div class="cable-card"><div class="big">🕷️</div><b>Malicious cable</b><div class="dim" style="font-size:13px;">Looks identical — hidden chip can type commands or open a wireless backdoor</div></div>
+    </div>
+
+    <div class="nav-row">
+      <button class="btn" data-go="2">← Back</button>
+      <button class="btn primary" data-go="4">The Playbook →</button>
+    </div>
+  </div>
+</section>
+
+<section class="scene" id="scene-4">
+  <div class="mk-content">
+    <div class="mk-label">Act 04 · Your playbook</div>
+    <h2 class="mk-h2">If you didn't buy it, <span class="italic">don't plug it.</span></h2>
+    <div class="rules">
+      <div class="rule"><div class="rule-num">RULE 01</div><div class="rule-title">Found it? Hand it in.</div><div class="rule-body">Never plug in found drives — at work or at home. Give them to IT/Security with where and when you found them.</div></div>
+      <div class="rule"><div class="rule-num">RULE 02</div><div class="rule-title">Only IT-issued hardware.</div><div class="rule-body">Keyboards, mice, drives, docks, and cables for work devices should come through IT.</div></div>
+      <div class="rule"><div class="rule-num">RULE 03</div><div class="rule-title">Charge with your own gear.</div><div class="rule-body">Your charger, your cable, a wall socket or power bank. Never "trust" an unknown computer from your phone.</div></div>
+      <div class="rule"><div class="rule-num">RULE 04</div><div class="rule-title">Use approved file sharing.</div><div class="rule-body">Need to move files? Use company cloud storage or email — not a stick passed around.</div></div>
+      <div class="rule"><div class="rule-num">RULE 05</div><div class="rule-title">Spot something odd? Report.</div><div class="rule-body">An unfamiliar device attached to a PC, network port, or printer should be reported, not removed.</div></div>
+    </div>
+    <div class="pull-quote">The best attacks feel like a favour — returning a lost drive, charging a dead phone. Kindness is fine. Plugging in is not.</div>
+
+    <div class="mk-complete">
+      <h3>Gift <span class="italic">declined.</span></h3>
+      <p>Pass the knowledge check to earn your Gift Nobody Sent badge.</p>
+      <button class="btn primary" id="startCheckBtn">Take the Knowledge Check →</button>
+    </div>
+    <div id="shadowproof-assessment"></div>
+
+    <div class="nav-row">
+      <button class="btn" data-go="3">← Back</button>
+      <a href="index.html" class="btn">Return to Suite →</a>
+    </div>
+  </div>
+</section>
+
+<script src="questions.js"></script>
+<script src="assessment.js"></script>
+<script src="module-kit.js"></script>
+<script>
+  ModuleKit.init({ moduleId: 'usb', moduleTitle: 'The Gift Nobody Sent' });
+  document.getElementById('usbDrop').addEventListener('click', function () {
+    document.getElementById('usbFound').style.display = 'block';
+  });
+</script>
+</body>
+</html>

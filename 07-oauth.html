@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>
+  (function () { try { if (!localStorage.getItem("shadowproof_profile_v1")) window.location.replace("signin.html"); } catch (e) {} })();
+</script>
+<script src="labs-access.js"></script>
+<script>SPAccess.guard('oauth');</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Module 08 // The Handed Key — OAuth Consent Phishing</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&family=Fraunces:ital,wght@0,400;0,600;0,800;1,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="module-kit.css">
+<style>
+  :root { --accent: #b48fff; --accent-rgb: 180, 143, 255; --bg: #0a0810; --bg-2: #100d18; --surface: #15111f; }
+  .consent {
+    max-width: 440px; margin: 0 auto; background: #fff; color: #1b1b1b; border-radius: 4px;
+    font-family: Segoe UI, -apple-system, Roboto, sans-serif; padding: 32px 34px; box-shadow: 0 30px 60px rgba(0,0,0,.5);
+  }
+  .consent-brand { display: flex; align-items: center; gap: 8px; font-size: 15px; font-weight: 600; margin-bottom: 18px; color: #333; }
+  .squares { display: grid; grid-template-columns: 9px 9px; gap: 2px; }
+  .squares i { width: 9px; height: 9px; display: block; }
+  .consent-acct { font-size: 13px; color: #444; margin-bottom: 14px; }
+  .consent h4 { font-size: 22px; font-weight: 600; margin-bottom: 6px; color: #1b1b1b; }
+  .app-row { display: flex; gap: 12px; align-items: center; margin: 14px 0; }
+  .app-logo { width: 42px; height: 42px; border-radius: 6px; background: linear-gradient(135deg, #2b7cff, #42c5ff); color: #fff; font-weight: 800; display: flex; align-items: center; justify-content: center; font-size: 18px; }
+  .unverified { color: #a4262c; font-size: 12px; }
+  .perm-title { font-size: 13px; color: #444; margin: 12px 0 8px; }
+  .perms { list-style: none; font-size: 14px; }
+  .perms li { padding: 6px 0 6px 24px; position: relative; border-bottom: 1px solid #eee; }
+  .perms li::before { content: '›'; position: absolute; left: 6px; color: #777; }
+  .consent-fine { font-size: 11.5px; color: #555; margin-top: 14px; line-height: 1.5; }
+  .consent-btns { display: flex; justify-content: flex-end; gap: 8px; margin-top: 20px; }
+  .consent-btns span { padding: 7px 22px; font-size: 14px; border: 1px solid #8a8886; }
+  .consent-btns .acc { background: #0067b8; color: #fff; border-color: #0067b8; }
+  .consent .flag { border-bottom-color: #a4262c; background: rgba(164, 38, 44, .07); }
+  .consent .flag.found { background: rgba(164, 38, 44, .2); }
+  .scope-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .scope-table th, .scope-table td { border-bottom: 1px solid var(--border); padding: 10px 8px; text-align: left; vertical-align: top; }
+  .scope-table th { color: var(--text-muted); font-size: 10px; letter-spacing: .15em; text-transform: uppercase; font-weight: 500; }
+  .scope-table td:first-child { color: var(--text); white-space: nowrap; }
+  .scope-table td { color: var(--text-dim); }
+  @media (max-width: 760px) { .consent { padding: 24px 18px; } .scope-table td:first-child { white-space: normal; } }
+</style>
+</head>
+<body>
+
+<div class="mk-bar">
+  <a href="index.html">← Exit</a>
+  <span class="mk-center">Module 08 · OAuth Consent Phishing</span>
+  <span id="clock">--:--:--</span>
+</div>
+
+<nav class="mk-chapters" aria-label="Chapters">
+  <span class="mk-chapter active">01 · Briefing</span>
+  <span class="mk-chapter">02 · The Request</span>
+  <span class="mk-chapter">03 · Read the Fine Print</span>
+  <span class="mk-chapter">04 · Playbook</span>
+</nav>
+
+<section class="scene active" id="scene-1">
+  <div class="mk-hero">
+    <div class="mk-kicker">Module 08 · Tier 02</div>
+    <div class="mk-icon">🎫</div>
+    <h1 class="mk-title">The Handed <span class="italic">Key.</span></h1>
+    <p class="mk-lede">No fake login page. No stolen password. You sign in to the real Microsoft or Google page — and then you hand the attacker a key yourself, by clicking "Accept".</p>
+    <div class="mk-meta">Runtime · 8 minutes · Interactive</div>
+    <div class="mk-stats">
+      <div class="mk-stat"><div class="mk-stat-num">0</div><div class="mk-stat-label">passwords stolen — the attacker never needs yours</div></div>
+      <div class="mk-stat"><div class="mk-stat-num">MFA</div><div class="mk-stat-label">doesn't help: you completed it yourself before granting access</div></div>
+      <div class="mk-stat"><div class="mk-stat-num">Persists</div><div class="mk-stat-label">even after you change your password — until the app is removed</div></div>
+    </div>
+  </div>
+  <div class="mk-content" style="padding-top:0;">
+    <p class="mk-prose">"Sign in with Microsoft" and "Sign in with Google" let apps work with your data through <strong>OAuth</strong> — a system of permission slips. Normally that's great. But an attacker can register their own app, give it a friendly name, and ask you for a permission slip to <strong>read your mail, your files, and act as you — indefinitely.</strong></p>
+    <div class="nav-row">
+      <a href="index.html" class="btn">← Back to Suite</a>
+      <button class="btn primary" data-go="2">See the Request →</button>
+    </div>
+  </div>
+</section>
+
+<section class="scene" id="scene-2">
+  <div class="mk-content">
+    <div class="mk-label">Act 02 · The request</div>
+    <h2 class="mk-h2">"Please review the <span class="italic">shared proposal.</span>"</h2>
+    <p class="mk-prose">An email says a partner shared a document via "DocuView". You click, land on the <strong>genuine</strong> Microsoft sign-in page, enter your password and MFA. Then this appears. Find the warning signs:</p>
+
+    <div class="flag-zone">
+      <div class="consent">
+        <div class="consent-brand"><span class="squares"><i style="background:#f25022"></i><i style="background:#7fba00"></i><i style="background:#00a4ef"></i><i style="background:#ffb900"></i></span> Microsoft</div>
+        <div class="consent-acct">you@company.com</div>
+        <h4>Permissions requested</h4>
+        <div class="app-row">
+          <div class="app-logo">D</div>
+          <div><b><button class="flag">DocuView Secure Viewer<span class="why"><b>Generic, trust-sounding name</b>Attackers pick names like "Secure Viewer", "Office Sync" or "PDF Reader". Anyone can register an app with any display name.</span></button></b><div class="unverified"><button class="flag">unverified<span class="why"><b>Unverified publisher</b>The publisher hasn't proven who they are to Microsoft. Most legitimate business apps your company uses are verified or pre-approved by IT.</span></button></div></div>
+        </div>
+        <div class="perm-title">This app would like to:</div>
+        <ul class="perms">
+          <li><button class="flag">Read and write access to your mail<span class="why"><b>Mailbox access to "view a document"?</b>A document viewer has no reason to read — or send — your email. Read+write lets the attacker search for invoices and send messages as you.</span></button></li>
+          <li><button class="flag">Have full access to all files you can access<span class="why"><b>All files, not one file</b>The lure was a single shared document. This grants every file in OneDrive and SharePoint you can reach.</span></button></li>
+          <li>Read your contacts</li>
+          <li><button class="flag">Maintain access to data you have given it access to<span class="why"><b>"Maintain access" = forever</b>This is offline access: a refresh token that keeps working even after you close the browser — and after you change your password.</span></button></li>
+          <li>Sign you in and read your profile</li>
+        </ul>
+        <div class="consent-fine">Accepting these permissions means that you allow this app to use your data as specified in their terms of service and privacy statement. You can change these permissions at https://myapps.microsoft.com.</div>
+        <div class="consent-btns"><span>Cancel</span><span class="acc">Accept</span></div>
+      </div>
+      <div class="flag-meter"><span>Red flags found: <b class="flag-count">0</b> / <span class="flag-total"></span></span><span class="muted">Click the suspicious text</span></div>
+      <div class="flag-log"></div>
+    </div>
+
+    <div class="mk-prompt">▸ Your move:</div>
+    <div class="choice-set">
+      <button class="choice" data-verdict="bad">Accept — it's the real Microsoft page, so it must be safe.
+        <span class="why">The page is real; the <strong>app</strong> is the attacker's. Microsoft is faithfully asking whether you want to hand over these permissions. Clicking Accept gives a token straight to the attacker — no password needed, MFA already satisfied.</span></button>
+      <button class="choice" data-verdict="meh">Click Cancel and move on.
+        <span class="why">Cancel keeps your data safe — well done. But the email is still in coworkers' inboxes. Report it so Security can block the app tenant-wide.</span></button>
+      <button class="choice" data-verdict="good">Cancel, then report the email and the app name to Security.
+        <span class="why">Exactly right. Security can block the app for everyone and check whether anyone already consented. <strong>Rule of thumb: if the permissions are bigger than the task, say no.</strong></span></button>
+    </div>
+
+    <div class="nav-row">
+      <button class="btn" data-go="1">← Back</button>
+      <button class="btn primary" data-go="3">Read the Fine Print →</button>
+    </div>
+  </div>
+</section>
+
+<section class="scene" id="scene-3">
+  <div class="mk-content">
+    <div class="mk-label">Act 03 · Permissions decoded</div>
+    <h2 class="mk-h2">What the words <span class="italic">actually mean.</span></h2>
+    <div class="mk-panel">
+      <table class="scope-table">
+        <thead><tr><th>Consent screen says</th><th>What the app can actually do</th></tr></thead>
+        <tbody>
+          <tr><td>Sign you in and read your profile</td><td>See your name, email, and photo. Low risk — this is what most "sign in with" apps need.</td></tr>
+          <tr><td>Read your mail</td><td>Search years of email: invoices, password resets, contracts, HR messages.</td></tr>
+          <tr><td>Send mail as you</td><td>Phish your coworkers and customers from your real account. Classic business email compromise.</td></tr>
+          <tr><td>Access all files you can access</td><td>Download everything in OneDrive, SharePoint, and Teams you have rights to — not just your own.</td></tr>
+          <tr><td>Maintain access to data…</td><td>Keep all of the above working long after you've closed the tab. Password resets don't revoke it.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 class="mk-h3">Would you grant it? Sort each request.</h3>
+    <div class="mk-panel">
+      <div class="triage">
+        <div class="tri" data-answer="safe">
+          <div><div class="tri-name">Company-approved scheduling tool asks to "Read your calendar"</div><div class="tri-sub">Listed in your company's app catalog · verified publisher</div></div>
+          <div class="tri-btns"><button data-pick="safe">Reasonable</button><button data-pick="danger">Refuse</button></div>
+          <div class="why">Matches the task, approved by IT, verified publisher. That's how normal consent looks.</div>
+        </div>
+        <div class="tri" data-answer="danger">
+          <div><div class="tri-name">"PDF Converter Pro" asks to "Read and write all your mail"</div><div class="tri-sub">Linked from an email · unverified</div></div>
+          <div class="tri-btns"><button data-pick="safe">Reasonable</button><button data-pick="danger">Refuse</button></div>
+          <div class="why">A converter needs one file, not your mailbox. Permissions far bigger than the job = refuse.</div>
+        </div>
+        <div class="tri" data-answer="danger">
+          <div><div class="tri-name">"HR Benefits Portal 2026" asks for "Files.ReadWrite.All" and offline access</div><div class="tri-sub">Email says you must enroll by Friday</div></div>
+          <div class="tri-btns"><button data-pick="safe">Reasonable</button><button data-pick="danger">Refuse</button></div>
+          <div class="why">Urgency + broad file access + persistent access. Check with HR via a channel you already know before granting anything.</div>
+        </div>
+        <div class="tri" data-answer="danger">
+          <div><div class="tri-name">Browser game asks to "Sign you in" and "Read your contacts and mail"</div><div class="tri-sub">Using your work account</div></div>
+          <div class="tri-btns"><button data-pick="safe">Reasonable</button><button data-pick="danger">Refuse</button></div>
+          <div class="why">Never connect personal or entertainment apps to your work identity — and certainly not with mail access.</div>
+        </div>
+      </div>
+      <div class="tri-score"></div>
+    </div>
+
+    <div class="mk-panel accent"><strong>Already clicked Accept?</strong> <span class="dim">Report it immediately. Security can revoke the app's tokens. You can also review apps you've granted at your account's "My Apps" / "Third-party access" page (Microsoft: myapps.microsoft.com · Google: myaccount.google.com → Security → third-party connections). Changing your password alone does <strong>not</strong> remove the app.</span></div>
+
+    <div class="nav-row">
+      <button class="btn" data-go="2">← Back</button>
+      <button class="btn primary" data-go="4">The Playbook →</button>
+    </div>
+  </div>
+</section>
+
+<section class="scene" id="scene-4">
+  <div class="mk-content">
+    <div class="mk-label">Act 04 · Your playbook</div>
+    <h2 class="mk-h2">Before you click <span class="italic">Accept.</span></h2>
+    <div class="rules">
+      <div class="rule"><div class="rule-num">RULE 01</div><div class="rule-title">Real page ≠ safe app.</div><div class="rule-body">A genuine Microsoft or Google screen can still be asking you to authorize an attacker's app. Read who is asking, not who is hosting.</div></div>
+      <div class="rule"><div class="rule-num">RULE 02</div><div class="rule-title">Permissions must fit the task.</div><div class="rule-body">Viewing a document never requires your mail, all your files, or ongoing access. Mismatch = refuse.</div></div>
+      <div class="rule"><div class="rule-num">RULE 03</div><div class="rule-title">Unverified + unexpected = no.</div><div class="rule-body">If you didn't go looking for this app, and the publisher isn't verified or approved by IT, cancel.</div></div>
+      <div class="rule"><div class="rule-num">RULE 04</div><div class="rule-title">Use the company app catalog.</div><div class="rule-body">Need a tool? Request it through IT. Approved apps are vetted; random links are not.</div></div>
+      <div class="rule"><div class="rule-num">RULE 05</div><div class="rule-title">Granted by mistake? Report fast.</div><div class="rule-body">Only revoking the app stops it — a password change won't. Tell Security what you approved and when.</div></div>
+    </div>
+    <div class="pull-quote">The most dangerous key is the one you hand over yourself — politely, on a real login page.</div>
+
+    <div class="mk-complete">
+      <h3>Key <span class="italic">withheld.</span></h3>
+      <p>Pass the knowledge check to earn your Handed Key badge.</p>
+      <button class="btn primary" id="startCheckBtn">Take the Knowledge Check →</button>
+    </div>
+    <div id="shadowproof-assessment"></div>
+
+    <div class="nav-row">
+      <button class="btn" data-go="3">← Back</button>
+      <a href="index.html" class="btn">Return to Suite →</a>
+    </div>
+  </div>
+</section>
+
+<script src="questions.js"></script>
+<script src="assessment.js"></script>
+<script src="module-kit.js"></script>
+<script>ModuleKit.init({ moduleId: 'oauth', moduleTitle: 'The Handed Key' });</script>
+</body>
+</html>

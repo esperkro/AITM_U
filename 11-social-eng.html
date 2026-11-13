@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>
+  (function () { try { if (!localStorage.getItem("shadowproof_profile_v1")) window.location.replace("signin.html"); } catch (e) {} })();
+</script>
+<script src="labs-access.js"></script>
+<script>SPAccess.guard('social-eng');</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Module 13 // Held Door — Social Engineering &amp; Tailgating</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&family=Fraunces:ital,wght@0,400;0,600;0,800;1,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="module-kit.css">
+<style>
+  :root { --accent: #ffb020; --accent-rgb: 255, 176, 32; --bg: #100a08; --bg-2: #17100b; --surface: #1c140e; }
+  .encounter { display: grid; grid-template-columns: 90px 1fr; gap: 22px; margin: 36px 0 12px; align-items: start; }
+  .enc-ico { width: 90px; height: 90px; border-radius: 50%; background: var(--surface); border: 1px solid rgba(var(--accent-rgb), .5); display: flex; align-items: center; justify-content: center; font-size: 42px; }
+  .enc-time { font-size: 11px; letter-spacing: .2em; color: var(--accent); }
+  .enc-quote { font-family: 'Fraunces', Georgia, serif; font-size: 20px; font-style: italic; margin: 6px 0; }
+  .levers { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
+  .lever { background: var(--surface); border: 1px solid var(--border); padding: 18px; }
+  .lever b { display: block; font-family: 'Fraunces', Georgia, serif; font-size: 19px; color: var(--accent); margin-bottom: 4px; }
+  .lever span { color: var(--text-dim); font-size: 13px; }
+  .script { font-family: 'Fraunces', Georgia, serif; font-size: 18px; font-style: italic; color: var(--text); }
+  @media (max-width: 760px) { .encounter { grid-template-columns: 1fr; } .enc-ico { width: 64px; height: 64px; font-size: 30px; } }
+</style>
+</head>
+<body>
+
+<div class="mk-bar">
+  <a href="index.html">← Exit</a>
+  <span class="mk-center">Module 13 · Social Engineering &amp; Tailgating</span>
+  <span id="clock">--:--:--</span>
+</div>
+
+<nav class="mk-chapters" aria-label="Chapters">
+  <span class="mk-chapter active">01 · Briefing</span>
+  <span class="mk-chapter">02 · A Day at the Door</span>
+  <span class="mk-chapter">03 · The Levers</span>
+  <span class="mk-chapter">04 · Playbook</span>
+</nav>
+
+<section class="scene active" id="scene-1">
+  <div class="mk-hero">
+    <div class="mk-kicker">Module 13 · Tier 03</div>
+    <div class="mk-icon">🚪</div>
+    <h1 class="mk-title">Held <span class="italic">Door.</span></h1>
+    <p class="mk-lede">"Could you grab the door? My hands are full." The most expensive badge reader in the world loses to good manners every single day.</p>
+    <div class="mk-meta">Runtime · 8 minutes · Interactive</div>
+    <div class="mk-stats">
+      <div class="mk-stat"><div class="mk-stat-num">Hi-vis</div><div class="mk-stat-label">vests, clipboards, and coffee trays are the favourite props of physical testers</div></div>
+      <div class="mk-stat"><div class="mk-stat-num">Inside</div><div class="mk-stat-label">an attacker can plug devices in, photograph screens, or walk out with laptops</div></div>
+      <div class="mk-stat"><div class="mk-stat-num">Politeness</div><div class="mk-stat-label">is the security control attackers exploit most</div></div>
+    </div>
+  </div>
+  <div class="mk-content" style="padding-top:0;">
+    <p class="mk-prose">Social engineering is manipulating people instead of machines. In person it looks like <strong>tailgating</strong> (following you through a secure door), <strong>pretexting</strong> (posing as a contractor, auditor, or new hire), and plain old charm. You don't need to be suspicious of everyone — you need a few polite scripts that work every time.</p>
+    <div class="nav-row">
+      <a href="index.html" class="btn">← Back to Suite</a>
+      <button class="btn primary" data-go="2">Start Your Day →</button>
+    </div>
+  </div>
+</section>
+
+<section class="scene" id="scene-2">
+  <div class="mk-content">
+    <div class="mk-label">Act 02 · Four encounters, one day</div>
+    <h2 class="mk-h2">Who gets <span class="italic">in?</span></h2>
+
+    <div class="encounter">
+      <div class="enc-ico">📦</div>
+      <div>
+        <div class="enc-time">08:52 · STAFF ENTRANCE</div>
+        <div class="enc-quote">"Morning! Could you get the door? Got a delivery for the third floor."</div>
+        <div class="dim">A person in a courier jacket, arms full of boxes, is right behind you as you badge in.</div>
+      </div>
+    </div>
+    <div class="choice-set">
+      <button class="choice" data-verdict="bad">Hold the door — their hands are full, and they're obviously a courier.
+        <span class="why">A uniform costs $20 online and full hands are the classic tailgating prop: they make refusing feel rude. Once inside, nobody questions them.</span></button>
+      <button class="choice" data-verdict="good">"Happy to help — deliveries go through reception just around the corner, they'll sign for it and call up."
+        <span class="why">Friendly, helpful, and secure. You aren't accusing anyone — you're pointing them to the process. Real couriers know the drill.</span></button>
+    </div>
+
+    <div class="encounter">
+      <div class="enc-ico">🦺</div>
+      <div>
+        <div class="enc-time">11:20 · YOUR FLOOR</div>
+        <div class="enc-quote">"I'm with the building's IT contractor — need to check the network cabinet. Facilities said someone would show me."</div>
+        <div class="dim">Hi-vis vest, laptop bag, lanyard with a badge you don't recognize. Confident, in a hurry.</div>
+      </div>
+    </div>
+    <div class="choice-set">
+      <button class="choice" data-verdict="bad">Show them to the network room — they clearly know what they're doing.
+        <span class="why">Confidence and jargon are the costume. A few minutes alone with network equipment is enough to plant a device.</span></button>
+      <button class="choice" data-verdict="meh">Ask to see their badge, then let them in.
+        <span class="why">Better — but you can't validate an unfamiliar badge by looking at it. Fakes are easy to print.</span></button>
+      <button class="choice" data-verdict="good">"No problem — let me call Facilities to confirm the visit, and they'll send someone to escort you." Then call using the number from the company directory.
+        <span class="why">Exactly. Verify through a channel you trust, and visitors get escorted. A real contractor will wait; a fake one often suddenly "needs to grab something from the van".</span></button>
+    </div>
+
+    <div class="encounter">
+      <div class="enc-ico">🙋</div>
+      <div>
+        <div class="enc-time">14:05 · SECURE DOOR TO FINANCE</div>
+        <div class="enc-quote">"Hey, sorry — it's my first week and my badge isn't working yet. Can you let me through?"</div>
+        <div class="dim">Friendly, dressed like everyone else, holding a coffee with your company's logo on the cup.</div>
+      </div>
+    </div>
+    <div class="choice-set">
+      <button class="choice" data-verdict="bad">Let them through — you remember being new and it was stressful.
+        <span class="why">Empathy is the lever. Branded cups and "first week" stories are cheap. Letting someone through a secure door on your badge also means the access log shows <em>you</em>.</span></button>
+      <button class="choice" data-verdict="good">"Ugh, badges are the worst in week one! Reception can sort you a temporary one — or I can call your manager. What's their name?"
+        <span class="why">Warm and firm. A real new hire is grateful; their manager or reception can fix it in minutes. Each person badges in for themselves — always.</span></button>
+    </div>
+
+    <div class="encounter">
+      <div class="enc-ico">📋</div>
+      <div>
+        <div class="enc-time">16:40 · AT YOUR DESK</div>
+        <div class="enc-quote">"Hi, I'm doing the quarterly asset audit — what's the asset tag on your laptop, your username, and which VPN client do you use?"</div>
+        <div class="dim">Someone with a clipboard you've never seen. Polite, a bit bored, ticking boxes.</div>
+      </div>
+    </div>
+    <div class="choice-set">
+      <button class="choice" data-verdict="bad">Answer — it's just admin, nothing like a password.
+        <span class="why">Small details add up. Username + device + VPN client is exactly what an attacker needs to craft a convincing help-desk call or phishing email next week.</span></button>
+      <button class="choice" data-verdict="good">"I'll need to check this is an official audit first — who's running it?" Then confirm with IT or your manager before sharing anything, and report it if it doesn't check out.
+        <span class="why">Right. Information gathering ("reconnaissance") is how bigger attacks start. Verify the request before answering, however boring it seems.</span></button>
+    </div>
+
+    <div class="nav-row">
+      <button class="btn" data-go="1">← Back</button>
+      <button class="btn primary" data-go="3">The Levers →</button>
+    </div>
+  </div>
+</section>
+
+<section class="scene" id="scene-3">
+  <div class="mk-content">
+    <div class="mk-label">Act 03 · The levers they pull</div>
+    <h2 class="mk-h2">Six buttons on <span class="italic">every human.</span></h2>
+    <p class="mk-prose">Social engineers use the same handful of psychological levers. Once you can name them, you'll feel them being pulled.</p>
+    <div class="levers">
+      <div class="lever"><b>Helpfulness</b><span>Full hands, a lost badge, a stressed newcomer. You want to help — they want you to.</span></div>
+      <div class="lever"><b>Authority</b><span>Uniforms, titles, "the director asked me to…". We defer without checking.</span></div>
+      <div class="lever"><b>Urgency</b><span>"I'm late", "it'll go down in an hour". Rushing skips verification.</span></div>
+      <div class="lever"><b>Familiarity</b><span>Company swag, insider names, small talk. Feels like one of us.</span></div>
+      <div class="lever"><b>Avoiding awkwardness</b><span>Challenging someone feels rude. They count on that discomfort.</span></div>
+      <div class="lever"><b>Reciprocity</b><span>A coffee, a compliment, a favour first — then the ask.</span></div>
+    </div>
+
+    <h3 class="mk-h3">Scripts that work (without being rude)</h3>
+    <div class="reveal-grid">
+      <button class="reveal"><span class="reveal-front">Someone wants to follow you through a door</span><span class="reveal-hint">Tap for a script</span><span class="why"><span class="script">"Sorry — we each have to badge in. Reception can help you out!"</span></span></button>
+      <button class="reveal"><span class="reveal-front">A visitor is wandering without an escort</span><span class="reveal-hint">Tap for a script</span><span class="why"><span class="script">"Hi! Can I help you find someone? Who are you here to see?"</span> — then walk them to reception or their host.</span></button>
+      <button class="reveal"><span class="reveal-front">Someone claims authority you can't verify</span><span class="reveal-hint">Tap for a script</span><span class="why"><span class="script">"Totally — I just need to confirm with [Facilities/IT/your manager] first. It'll take two minutes."</span></span></button>
+      <button class="reveal"><span class="reveal-front">You feel awkward refusing</span><span class="reveal-hint">Tap for a reminder</span><span class="why">Blame the policy, not the person: <span class="script">"It's not personal — it's the rule for everyone, me included."</span> Real staff respect it.</span></button>
+    </div>
+
+    <div class="nav-row">
+      <button class="btn" data-go="2">← Back</button>
+      <button class="btn primary" data-go="4">The Playbook →</button>
+    </div>
+  </div>
+</section>
+
+<section class="scene" id="scene-4">
+  <div class="mk-content">
+    <div class="mk-label">Act 04 · Your playbook</div>
+    <h2 class="mk-h2">Polite. Firm. <span class="italic">Every time.</span></h2>
+    <div class="rules">
+      <div class="rule"><div class="rule-num">RULE 01</div><div class="rule-title">One badge, one person.</div><div class="rule-body">Never let someone through a secure door on your badge — not couriers, not coworkers, not new hires.</div></div>
+      <div class="rule"><div class="rule-num">RULE 02</div><div class="rule-title">Wear your badge, expect others to.</div><div class="rule-body">Visible badges make strangers stand out. Offer help to anyone without one.</div></div>
+      <div class="rule"><div class="rule-num">RULE 03</div><div class="rule-title">Verify with a call.</div><div class="rule-body">Contractors, auditors, inspectors: confirm through the directory number before granting access or sharing information.</div></div>
+      <div class="rule"><div class="rule-num">RULE 04</div><div class="rule-title">Visitors get escorts.</div><div class="rule-body">Visitors sign in at reception and are accompanied at all times — especially near network rooms and finance.</div></div>
+      <div class="rule"><div class="rule-num">RULE 05</div><div class="rule-title">Clean desk, locked screen.</div><div class="rule-body">An intruder's best loot is what's left out: printouts, sticky-note passwords, unlocked laptops.</div></div>
+      <div class="rule"><div class="rule-num">RULE 06</div><div class="rule-title">Report the odd ones.</div><div class="rule-body">Someone pushy or out of place? Tell Security — even if it turned out fine. Patterns matter.</div></div>
+    </div>
+    <div class="pull-quote">Holding the door is kind. Checking who's walking through it is kinder — to everyone inside.</div>
+
+    <div class="mk-complete">
+      <h3>Door <span class="italic">held — properly.</span></h3>
+      <p>Pass the knowledge check to earn your Held Door badge.</p>
+      <button class="btn primary" id="startCheckBtn">Take the Knowledge Check →</button>
+    </div>
+    <div id="shadowproof-assessment"></div>
+
+    <div class="nav-row">
+      <button class="btn" data-go="3">← Back</button>
+      <a href="index.html" class="btn">Return to Suite →</a>
+    </div>
+  </div>
+</section>
+
+<script src="questions.js"></script>
+<script src="assessment.js"></script>
+<script src="module-kit.js"></script>
+<script>ModuleKit.init({ moduleId: 'social-eng', moduleTitle: 'Held Door' });</script>
+</body>
+</html>

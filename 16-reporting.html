@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>
+  (function () { try { if (!localStorage.getItem("shadowproof_profile_v1")) window.location.replace("signin.html"); } catch (e) {} })();
+</script>
+<script src="labs-access.js"></script>
+<script>SPAccess.guard('reporting');</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Module 16 // The First Nine Minutes — When &amp; How to Report</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&family=Fraunces:ital,wght@0,400;0,600;0,800;1,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="module-kit.css">
+<style>
+  :root { --accent: #ff4757; --accent-rgb: 255, 71, 87; --bg: #100508; --bg-2: #160a0d; --surface: #1c0e12; }
+  .clock-race { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin: 24px 0; }
+  .race { background: var(--surface); border: 1px solid var(--border); padding: 18px; }
+  .race-t { font-family: 'Fraunces', Georgia, serif; font-size: 30px; font-weight: 800; color: var(--accent); }
+  .race-d { font-size: 13px; color: var(--text-dim); }
+  .race.good .race-t { color: var(--good); }
+  .builder { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .opt { display: flex; gap: 10px; align-items: flex-start; padding: 10px 0; border-bottom: 1px dashed var(--border); font-size: 13.5px; cursor: pointer; }
+  .opt input { margin-top: 4px; accent-color: var(--accent); }
+  .opt.bad-opt span { color: var(--text-dim); }
+  .preview { background: var(--bg); border: 1px solid var(--border); padding: 18px; font-size: 13px; white-space: pre-wrap; min-height: 220px; color: var(--text-dim); }
+  .grade { margin-top: 12px; font-size: 13px; }
+  @media (max-width: 760px) { .builder { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+
+<div class="mk-bar">
+  <a href="index.html">← Exit</a>
+  <span class="mk-center">Module 16 · When &amp; How to Report</span>
+  <span id="clock">--:--:--</span>
+</div>
+
+<nav class="mk-chapters" aria-label="Chapters">
+  <span class="mk-chapter active">01 · Briefing</span>
+  <span class="mk-chapter">02 · Report or Not?</span>
+  <span class="mk-chapter">03 · Build the Report</span>
+  <span class="mk-chapter">04 · Playbook</span>
+</nav>
+
+<section class="scene active" id="scene-1">
+  <div class="mk-hero">
+    <div class="mk-kicker">Module 16 · Tier 04</div>
+    <div class="mk-icon">🚨</div>
+    <h1 class="mk-title">The First Nine <span class="italic">Minutes.</span></h1>
+    <p class="mk-lede">You clicked. Or you think you did. Or something just felt off. What happens next depends almost entirely on how quickly you say something.</p>
+    <div class="mk-meta">Runtime · 5 minutes · Interactive</div>
+  </div>
+  <div class="mk-content" style="padding-top:0;">
+    <p class="mk-prose">Security teams don't need you to be certain. They need you to be <strong>fast.</strong> Every module in this suite ends the same way — "report it" — so this one shows why speed matters, what to include, and why embarrassment is never a reason to wait.</p>
+    <div class="clock-race">
+      <div class="race good"><div class="race-t">Minutes</div><div class="race-d">Reported quickly: password reset, sessions revoked, email pulled from other inboxes. Often contained before any damage.</div></div>
+      <div class="race"><div class="race-t">Hours</div><div class="race-d">Attacker reads mail, sets forwarding rules, phishes coworkers from your account.</div></div>
+      <div class="race"><div class="race-t">Days</div><div class="race-d">Data stolen, fraudulent payments sent, ransomware staged across the network.</div></div>
+    </div>
+    <div class="mk-panel accent"><strong>You will not get in trouble for reporting.</strong> <span class="dim">A report that turns out to be nothing costs Security a few minutes. A mistake that goes unreported can cost the company millions. Good security teams thank reporters — including people who clicked.</span></div>
+    <div class="nav-row">
+      <a href="index.html" class="btn">← Back to Suite</a>
+      <button class="btn primary" data-go="2">Report or Not? →</button>
+    </div>
+  </div>
+</section>
+
+<section class="scene" id="scene-2">
+  <div class="mk-content">
+    <div class="mk-label">Act 02 · Report or not?</div>
+    <h2 class="mk-h2">When in doubt, <span class="italic">report.</span></h2>
+    <p class="mk-prose">Decide: does each situation deserve a report?</p>
+    <div class="mk-panel">
+      <div class="triage">
+        <div class="tri" data-answer="danger">
+          <div><div class="tri-name">You entered your password on a page, then realised the URL looked wrong</div></div>
+          <div class="tri-btns"><button data-pick="safe">Not needed</button><button data-pick="danger">Report now</button></div>
+          <div class="why">Report immediately — this is the single most time-critical case. Then change the password from a trusted device if Security tells you to.</div>
+        </div>
+        <div class="tri" data-answer="danger">
+          <div><div class="tri-name">A phishing email you recognised and didn't click</div></div>
+          <div class="tri-btns"><button data-pick="safe">Not needed</button><button data-pick="danger">Report now</button></div>
+          <div class="why">Still report (use the Report Phishing button). It lets Security remove it from everyone else's inbox — the coworker who would have clicked.</div>
+        </div>
+        <div class="tri" data-answer="danger">
+          <div><div class="tri-name">An MFA prompt you didn't trigger — and you denied it</div></div>
+          <div class="tri-btns"><button data-pick="safe">Not needed</button><button data-pick="danger">Report now</button></div>
+          <div class="why">A prompt means someone has your password. Report so Security can block them and help you reset.</div>
+        </div>
+        <div class="tri" data-answer="danger">
+          <div><div class="tri-name">You opened an attachment and "nothing happened"</div></div>
+          <div class="tri-btns"><button data-pick="safe">Not needed</button><button data-pick="danger">Report now</button></div>
+          <div class="why">Malware is designed to look like nothing happened. Report so your device can be checked.</div>
+        </div>
+        <div class="tri" data-answer="danger">
+          <div><div class="tri-name">You emailed a spreadsheet to the wrong person</div></div>
+          <div class="tri-btns"><button data-pick="safe">Not needed</button><button data-pick="danger">Report now</button></div>
+          <div class="why">Data incidents count too. Privacy teams may have legal deadlines measured in hours or days.</div>
+        </div>
+        <div class="tri" data-answer="safe">
+          <div><div class="tri-name">A newsletter you signed up for arrives as normal</div></div>
+          <div class="tri-btns"><button data-pick="safe">Not needed</button><button data-pick="danger">Report now</button></div>
+          <div class="why">Expected and harmless. If it's annoying, unsubscribe — that's not a security issue.</div>
+        </div>
+      </div>
+      <div class="tri-score"></div>
+    </div>
+
+    <div class="mk-prompt">▸ You clicked a link at 9:02 and entered your password before noticing. It's 9:05. Your manager is in a meeting until 10. You:</div>
+    <div class="choice-set">
+      <button class="choice" data-verdict="bad">Wait until 10 to ask your manager what to do.
+        <span class="why">An hour is a lifetime in an account takeover. Security doesn't need your manager's permission to help you.</span></button>
+      <button class="choice" data-verdict="meh">Change your password, then report it later if anything odd happens.
+        <span class="why">Changing the password helps, but attackers may already hold a session token, set mail rules, or registered a device. Security needs to revoke sessions and check — you can't see those things.</span></button>
+      <button class="choice" data-verdict="good">Report it to Security now (phone or the report channel), then follow their instructions.
+        <span class="why">Exactly. Call if it's urgent — a phone call beats a ticket in a queue. Tell your manager afterwards.</span></button>
+    </div>
+
+    <div class="nav-row">
+      <button class="btn" data-go="1">← Back</button>
+      <button class="btn primary" data-go="3">Build the Report →</button>
+    </div>
+  </div>
+</section>
+
+<section class="scene" id="scene-3">
+  <div class="mk-content">
+    <div class="mk-label">Act 03 · Build the report</div>
+    <h2 class="mk-h2">What to <span class="italic">say.</span></h2>
+    <p class="mk-prose">Pick what you'd include when reporting the 9:02 click. Watch the report take shape. (Practice only — nothing is sent anywhere.)</p>
+    <div class="builder">
+      <div class="mk-panel" style="margin:0;">
+        <label class="opt"><input type="checkbox" data-k="what" data-good="1"><span>What happened, in plain words</span></label>
+        <label class="opt"><input type="checkbox" data-k="when" data-good="1"><span>When it happened (time)</span></label>
+        <label class="opt"><input type="checkbox" data-k="did" data-good="1"><span>What you did (clicked, entered password, approved MFA, opened file)</span></label>
+        <label class="opt"><input type="checkbox" data-k="msg" data-good="1"><span>The original email/message (forward as attachment or use the Report button)</span></label>
+        <label class="opt"><input type="checkbox" data-k="device" data-good="1"><span>Which device and account were involved</span></label>
+        <label class="opt"><input type="checkbox" data-k="since" data-good="1"><span>Anything odd since (pop-ups, new prompts, sent items you didn't send)</span></label>
+        <label class="opt bad-opt"><input type="checkbox" data-k="pw" data-good="0"><span>Your password, so they can check the account</span></label>
+        <label class="opt bad-opt"><input type="checkbox" data-k="del" data-good="0"><span>A note that you deleted the email to be safe</span></label>
+      </div>
+      <div>
+        <div class="preview" id="preview">Subject: Possible phishing — I entered my password
+
+(select items on the left)</div>
+        <div class="grade" id="grade"></div>
+      </div>
+    </div>
+
+    <div class="mk-panel accent" style="margin-top:24px;"><strong>Don't "clean up" first.</strong> <span class="dim">Don't delete the email, wipe your browser history, or switch off your computer before reporting — Security may need them. Do disconnect from the network if they tell you to.</span></div>
+
+    <div class="nav-row">
+      <button class="btn" data-go="2">← Back</button>
+      <button class="btn primary" data-go="4">The Playbook →</button>
+    </div>
+  </div>
+</section>
+
+<section class="scene" id="scene-4">
+  <div class="mk-content">
+    <div class="mk-label">Act 04 · Your playbook</div>
+    <h2 class="mk-h2">Speed over <span class="italic">certainty.</span></h2>
+    <div class="rules">
+      <div class="rule"><div class="rule-num">RULE 01</div><div class="rule-title">Report first, worry later.</div><div class="rule-body">You don't need proof. "Something felt off" is a valid report.</div></div>
+      <div class="rule"><div class="rule-num">RULE 02</div><div class="rule-title">Know your channels.</div><div class="rule-body">Report Phishing button for emails; the security hotline or service desk for anything urgent. Save the number in your phone today.</div></div>
+      <div class="rule"><div class="rule-num">RULE 03</div><div class="rule-title">Urgent = call.</div><div class="rule-body">Entered a password, approved a prompt, ran a file, sent data to the wrong place? Phone, don't ticket.</div></div>
+      <div class="rule"><div class="rule-num">RULE 04</div><div class="rule-title">Include the facts.</div><div class="rule-body">What, when, what you did, which device/account, the original message, anything odd since.</div></div>
+      <div class="rule"><div class="rule-num">RULE 05</div><div class="rule-title">Never send passwords.</div><div class="rule-body">Security will never ask for your password — not even to investigate.</div></div>
+      <div class="rule"><div class="rule-num">RULE 06</div><div class="rule-title">Preserve, don't clean.</div><div class="rule-body">Keep the evidence. Follow Security's instructions on disconnecting or resetting.</div></div>
+    </div>
+    <div class="pull-quote">Embarrassment lasts a minute. A breach lasts a year. Report it.</div>
+
+    <div class="mk-complete">
+      <h3>Alarm <span class="italic">raised.</span></h3>
+      <p>Pass the knowledge check to earn your First Nine Minutes badge.</p>
+      <button class="btn primary" id="startCheckBtn">Take the Knowledge Check →</button>
+    </div>
+    <div id="shadowproof-assessment"></div>
+
+    <div class="nav-row">
+      <button class="btn" data-go="3">← Back</button>
+      <a href="index.html" class="btn">Return to Suite →</a>
+    </div>
+  </div>
+</section>
+
+<script src="questions.js"></script>
+<script src="assessment.js"></script>
+<script src="module-kit.js"></script>
+<script>
+  ModuleKit.init({ moduleId: 'reporting', moduleTitle: 'The First Nine Minutes' });
+  (function () {
+    var lines = {
+      what: 'I clicked a link in an email that looked like a Microsoft sign-in and entered my work password.',
+      when: 'Time: about 9:02 AM today. Noticed at 9:05.',
+      did: 'I entered my username and password. I did not approve any MFA prompt.',
+      msg: 'The original email is attached (forwarded as attachment).',
+      device: 'Device: my work laptop. Account: my work email account.',
+      since: 'Since then: one MFA prompt I did not start (denied). No other odd behaviour so far.',
+      pw: 'My password is ********** (so you can check).',
+      del: 'I deleted the email to be safe.'
+    };
+    var order = ['what', 'when', 'did', 'msg', 'device', 'since', 'pw', 'del'];
+    var boxes = document.querySelectorAll('.builder input');
+    function render() {
+      var picked = {}, good = 0, bad = [];
+      boxes.forEach(function (b) {
+        if (b.checked) { picked[b.dataset.k] = true; if (b.dataset.good === '1') good++; else bad.push(b.dataset.k); }
+      });
+      var body = order.filter(function (k) { return picked[k]; }).map(function (k) { return '• ' + lines[k]; }).join('\n');
+      document.getElementById('preview').textContent = 'Subject: Possible phishing — I entered my password\n\n' + (body || '(select items on the left)');
+      var g = document.getElementById('grade');
+      var msgs = [];
+      if (bad.indexOf('pw') !== -1) msgs.push('<span style="color:var(--bad)">✗ Never include your password. Security will never ask for it.</span>');
+      if (bad.indexOf('del') !== -1) msgs.push('<span style="color:var(--bad)">✗ Don\'t delete the email — Security needs it to find and remove copies from other inboxes.</span>');
+      if (!bad.length) msgs.push(good === 6
+        ? '<span style="color:var(--good)">✓ Complete report. Security can act on this immediately.</span>'
+        : '<span class="dim">' + good + ' of 6 useful details included.</span>');
+      g.innerHTML = msgs.join('<br>');
+    }
+    boxes.forEach(function (b) { b.addEventListener('change', render); });
+  })();
+</script>
+</body>
+</html>

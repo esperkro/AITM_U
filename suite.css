@@ -1,0 +1,13 @@
+/* SHADOWPROOF — small shared accessibility layer for the hand-built modules (01–04, 06). */
+:focus-visible { outline: 2px solid var(--sp-accent, #00ff9f); outline-offset: 2px; }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+}
+/* Tap/keyboard-revealed tooltips (replaces hover-only title attributes) */
+.sp-tip { cursor: pointer; }
+.sp-tip-text {
+  display: none; margin: 8px 0 4px; padding: 10px 14px; font-style: normal;
+  font-family: 'Space Mono', 'JetBrains Mono', monospace; font-size: 12.5px; line-height: 1.55; letter-spacing: 0;
+  text-transform: none; border-left: 2px solid currentColor; background: rgba(255, 255, 255, 0.05);
+}
+.sp-tip-text.show { display: block; }
